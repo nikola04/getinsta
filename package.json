@@ -1,0 +1,28 @@
+{
+  "name": "getinsta",
+  "version": "1.0.0",
+  "description": "Service for getting instagram user profile and data",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nikola04/getinsta.git"
+  },
+  "author": "Nikola Nedeljkovic",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nikola04/getinsta/issues"
+  },
+  "homepage": "https://github.com/nikola04/getinsta#readme",
+  "devDependencies": {
+    "@types/node": "^20.11.22",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2"
+  }
+}
