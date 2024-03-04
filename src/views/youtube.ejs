@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Insta | Download Youtube Videos and Shorts | YouTube Downloader</title>
+    <link rel="stylesheet" href="/assets/css/nav.css">
+    <link rel="stylesheet" href="/assets/css/yt.css">
+    <script src="/assets/js/nav.js" defer></script>
+    <script src="/assets/js/youtube.js" defer></script>
+</head>
+<body>
+    <%- include('nav.ejs') %>
+    <div id="main">
+        <div id="header">
+            <h1 class="header-title">Youtube Downloader</h1>
+            <p class="header-desc">Download YouTube videos and shorts in high resolution</p>
+        </div>
+        <div id="pasteYoutubeUrl">
+            <div class="yt-input-wrapper">
+                <input type="text" name="youtube-url" id="youtubeUrl" placeholder="Paste your video url here"/>
+                <div class="yt-input-buttons" data-display="paste">
+                    <div class="yt-input-button paste" onclick="pasteYtUrl()"><img src="/assets/images/clipboard.svg" alt="paste"></div>
+                    <div class="yt-input-button search" onclick="trySearchUrl()"><img src="/assets/images/search.svg" alt="search"></div>
+                </div>
+            </div>
+        </div>
+        <div id="youtubeUrlMessage" data-message="">
+            <div class="youtube-url-message invalid-url">
+                <div class="icon">
+                    <img src="/assets/images/alert-circle.svg" alt="">
+                </div>
+                <p style="color: #f57a7a">Please enter a valid YouTube video url.</p>
+            </div>
+            <div class="youtube-url-message not-found">
+                <div class="icon">
+                    <img src="/assets/images/alert-circle.svg" alt="">
+                </div>
+                <p style="color: #f57a7a">This video is not found. Note that video needs to be public.</p>
+            </div>
+            <div class="youtube-url-message loading">
+                <div class="icon">
+                    <img style="animation: 2s linear rotate infinite" src="/assets/images/loader.svg" alt="">
+                </div>
+                <p>Please wait. We are loading a YouTube video data...</p>
+            </div>
+        </div>
+        <div id="youtubeVideosWrapper">
+            <div id="youtubeVideos">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

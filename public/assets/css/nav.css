@@ -4,6 +4,7 @@
     --color-gray-secondary: #979393;
     --color-gray-primary: #525252;
     --color-primary: #df6363;
+    --color-secondary:#fae1e1;
 }
 *{
     margin: 0;
@@ -11,17 +12,22 @@
     box-sizing: border-box;
     font-family: "Montserrat", sans-serif;
 }
+body{
+    background-color: #fbfbfb;
+}
 nav{
     position: relative;
     width: 100%;
     height: 70px;
     box-shadow: 0 0 2px rgba(0, 0, 0, .15);
+    background-color: #fff;
 }
 nav div.nav-container{
     width: 100%;
     height: 100%;
     max-width: var(--max-width);
     margin: 0 auto;
+    padding: 0 .75rem;
     display: flex;
     justify-content: space-between;
 }
@@ -119,6 +125,18 @@ div.features-container div.features-item.facebook:hover{
 div.features-item.facebook div.features-item-logo{
     background-color: #eff4f9;
 }
+div.features-container div.features-item.tiktok:hover{
+    background-color: #eff9f8;
+}
+div.features-item.tiktok div.features-item-logo{
+    background-color: #eff9f8;
+}
+div.features-container div.features-item.x:hover{
+    background-color: #eef0f2;
+}
+div.features-item.x div.features-item-logo{
+    background-color: #eef0f2;
+}
 div.features-item div.features-item-logo{
     width: 46px;
     height: 46px;
@@ -132,13 +150,19 @@ div.features-item-logo > img{
     width: 100%;
 }
 div.features-item.instagram div.features-item-logo > img{
-    padding: 3px;
+    padding: 4px;
 }
 div.features-item.youtube div.features-item-logo > img{
-    padding: 9px;
+    padding: 10px;
 }
 div.features-item.facebook div.features-item-logo > img{
     padding: 9px;
+}
+div.features-item.tiktok div.features-item-logo > img{
+    padding: 9px;
+}
+div.features-item.x div.features-item-logo > img{
+    padding: 13px;
 }
 div.features-item > div.features-item-data{
     max-width: 200px;
