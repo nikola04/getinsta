@@ -269,6 +269,7 @@ function createHTMLYoutubeVideo(video: VideoData, formats: GroupedFormats): HTML
         quality.addEventListener('click', (e) => {
             const format = [...formats.video, ...formats.videoOnly, ...formats.audioOnly].find(el => el.itag === itag)
             if(!format) return
+            if(format.hasVideo && !format.hasAudio) return
             setSelectedQuality(format)
         })
         return quality
