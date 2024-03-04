@@ -33,7 +33,7 @@ enum ButtonType {
     Paste,
     Search
 }
-const YoutubeUrlRegex = /(youtu\.be\/|youtube\.com\/(watch\?(.*&)?v=|(embed|v)\/))([^\?&"'>]+)/
+const YoutubeUrlRegex = /(youtu\.be\/|youtube\.com\/((watch\?(.*&)?v=|(embed|v)\/)|(shorts\/))([^\?&"'>]+))/
 
 function closeAllQuantities(){
     document.querySelectorAll('div.qualities').forEach(el => {
@@ -277,14 +277,14 @@ function createHTMLYoutubeVideo(video: VideoData, formats: GroupedFormats): HTML
     const av_qualities = document.createElement('div')
     av_qualities.classList.add('video-audio')
     av_qualities.classList.add('qualities-group')
-    const span_av = document.createElement('span')
+    const span_av = document.createElement('p')
     span_av.innerText = 'Video Other'
     av_qualities.appendChild(span_av)
     formats.video.forEach((format: Format) => av_qualities.appendChild(createQualityElement(format.qualityLabel, format.itag, format.container)));
     const audio_qualities = document.createElement('div')
     audio_qualities.classList.add('audio')
     audio_qualities.classList.add('qualities-group')
-    const span_a = document.createElement('span')
+    const span_a = document.createElement('p')
     span_a.innerText = 'Audio'
     audio_qualities.appendChild(span_a)
     formats.audioOnly.forEach((format: Format) => {
@@ -294,7 +294,7 @@ function createHTMLYoutubeVideo(video: VideoData, formats: GroupedFormats): HTML
     const video_qualities = document.createElement('div')
     video_qualities.classList.add('video')
     video_qualities.classList.add('qualities-group')
-    const span_v = document.createElement('span')
+    const span_v = document.createElement('p')
     span_v.innerText = 'Video'
     video_qualities.appendChild(span_v)
     formats.videoOnly.forEach((format: Format) => {

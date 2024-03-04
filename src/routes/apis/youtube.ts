@@ -7,19 +7,19 @@ const router = Router()
 router.use(cors())
 
 router.get('/download/:url', async (req, res) => {
-    const url = req.params.url;
-    const file_name = req.query.filename;
-    const format = req.query.format;
-    if(!url || !ytdl.validateURL(url)) return res.status(400).json({ error: '0', message: 'Please enter valid YouTube url.'})
-    if(!file_name || !format) return res.status(400).json({ error: '1', message: 'Please enter valid file name and format.'})
-    res.header('Content-Disposition', `attachment; filename="${file_name}"`);
     try{
+        const url = String(req.params.url);
+        const file_name: string = String(req.query.filename);
+        const format: number = Number(req.query.format);
+        if(!url || !ytdl.validateURL(url)) return res.status(400).json({ error: '0', message: 'Please enter valid YouTube url.'})
+        if(!file_name || !format) return res.status(400).json({ error: '1', message: 'Please enter valid file name and format.'})
+        res.header('Content-Disposition', `attachment; filename="${encodeURIComponent(file_name)}"`);
         ytdl(url, {
-            filter: (f) => f.itag === Number(format),
+            filter: (f) => f.itag === format,
         }).on('response', response => res.setHeader('Content-Length', response.headers["content-length"])).on('error', err => {
             res.removeHeader('Content-Disposition')
             if(err.message.includes('No such format found')) return res.status(404).send({ error: '2', message: 'No such format found.' })
-            return res.status(500).send({ error: '3', message: 'Server error while getting format' })
+            return res.status(500).send({ error: '3', message: 'Server error while getting format.' })
         }).pipe(res)
     }catch(err){
         console.error(err)
@@ -29,7 +29,7 @@ router.get('/download/:url', async (req, res) => {
 
 router.get('/search/:url', async (req, res) => {
     try{
-        const url = req.params.url
+        const url = String(req.params.url)
         if(!ytdl.validateURL(url)) return res.status(400).json({ error: '0', message: 'Please enter valid YouTube video url.'})
         const id = ytdl.getVideoID(url)
         if(!id) return res.status(400).json({ error: '0', message: 'Please enter valid YouTube video url.'})
