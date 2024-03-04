@@ -224,7 +224,8 @@ div.youtube-video-quality > div.selected-quality{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 130px;
+    width: auto;
+    min-width: 130px;
     height: 35px;
     padding: 0 .25rem 0 .75rem;
     font-size: 14px;
@@ -233,6 +234,9 @@ div.youtube-video-quality > div.selected-quality{
     background-color: var(--color-secondary);
     border-radius: 8px;
     cursor: pointer;
+}
+div.selected-quality > p{
+    text-wrap: nowrap;
 }
 div.youtube-video-quality > div.selected-quality img{
     height: 20px;
@@ -253,24 +257,34 @@ div.youtube-video-quality > div.qualities{
 div.youtube-video-quality > div.qualities.active{
     scale: 1;
 }
-div.qualities > div.quality{
+div.qualities > div.qualities-group{
+    padding: .25rem 0;
+}
+div.qualities > div.qualities-group > span{
+    font-weight: 500;
+    color: var(--color-gray-primary);
+    margin-bottom: .25rem;
+    padding: .25rem .5rem;
+    font-size: 14px;
+}
+div.qualities div.quality{
     display: flex;
     justify-content: space-between;
     padding: .5rem .25rem .5rem .75rem;
     transition: .15s ease all;
     cursor: pointer;
 }
-div.qualities > div.quality:hover{
+div.qualities div.quality:hover{
     background-color: #eee;
 }
-div.qualities > div.quality:active{
+div.qualities div.quality:active{
     background-color: #e5e5e5;
 }
-div.qualities > div.quality > p{
+div.qualities div.quality > p{
     font-size: 14px;
     color: var(--color-gray-primary);
 }
-div.qualities > div.quality > p > span{
+div.qualities div.quality > p > span{
     font-size: 12px;
     vertical-align: top;
 }
@@ -282,12 +296,57 @@ div.quality-chips > span.chip{
     font-weight: 500;
     vertical-align: top;
     margin-left: auto;
-    background-color: var(--color-secondary);
-    color: var(--color-primary);
     padding: 0 .375rem;
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-right: .25rem;
+}
+div.quality-chips > span.chip.red{
+    background-color: #fae1e1;
+    color: #df6363;
+}
+div.quality-chips > span.chip.purple{
+    background-color: #f3e1fa;
+    color: #b463df;
+}
+div.quality-chips > span.chip.green{
+    background-color: #e5fae1;
+    color: #6bcc44;
+}
+
+@media screen and (max-width: 600px) {
+    div#youtubeVideos > div.youtube-video{
+        height: auto;
+        flex-direction: column;
+    }
+    div.youtube-video > div.youtube-video-options {
+        justify-content: flex-end;
+        padding: 1rem .5rem;
+    }
+    div.youtube-video-info > div.youtube-video-thumbnail{
+        height: auto;
+        width: 185px;
+    }
+    div.youtube-video-info > div.youtube-video-thumbnail > img{
+        width: 100%;
+        height: auto;
+    }
+    div.youtube-video-data span.youtube-video-author{
+        margin-top: .5rem;
+    }
+    @media screen and (max-width: 470px){
+        div.youtube-video-info > div.youtube-video-thumbnail{
+            height: auto;
+            width: 100%;
+        }
+        div.youtube-video > div.youtube-video-options {
+            justify-content: flex-start;
+            padding: .5rem 0;
+        }
+        div.youtube-video > div.youtube-video-info{
+            flex-direction: column;
+        }
+    }
 }
