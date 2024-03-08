@@ -1,10 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 :root{
     --max-width: 1280px;
-    --color-gray-secondary: #979393;
-    --color-gray-primary: #525252;
-    --color-primary: #df6363;
-    --color-secondary:#fae1e1;
+    --color-gray-secondary: #7e8085;
+    --color-gray-primary: #444444;
+    --color-primary: #6388df;
+    --color-primary-active: #517de3;
+    --color-secondary:#e1e4fa;
+    --color-secondary-active:#dadefa;
 }
 *{
     margin: 0;
@@ -13,13 +15,13 @@
     font-family: "Montserrat", sans-serif;
 }
 body{
-    background-color: #fbfbfb;
+    background-color: #fff;
 }
 nav{
     position: relative;
     width: 100%;
-    height: 70px;
-    box-shadow: 0 0 2px rgba(0, 0, 0, .15);
+    height: 65px;
+    /* box-shadow: 0 0 4px rgba(0, 0, 0, .08); */
     background-color: #fff;
 }
 nav div.nav-container{
@@ -43,21 +45,21 @@ div.nav-container-left > div.nav-item{
     padding: .25rem .5rem;
 }
 div.nav-container-left > div.nav-item > a{
-    font-weight: 600;
-    font-size: 15px;
+    font-weight: 500;
+    font-size: 14px;
     text-decoration: none;
-    color: var(--color-gray-secondary);
-    transition: all .25s ease;
+    color: var(--color-gray-primary);
+    transition: all .14s ease;
     cursor: pointer;
 }
 div.nav-container-left > div.nav-item > a[data-active="true"]{
-    color: var(--color-gray-primary);
+    color: var(--color-gray-secondary);
 }
 div.nav-container-left > div.nav-item > a:hover{
-    color: var(--color-gray-primary);
+    color: var(--color-gray-secondary);
 }
 div.nav-item > div.nav-logo{
-    margin-right: .75rem;
+    margin-right: 1rem;
     height: 35px;
     width: 35px;
     display: flex;
@@ -81,7 +83,8 @@ div#features div.features-container{
     position: relative;
     border-radius: 12px;
     background-color: #fff;
-    box-shadow: 0 0 15px rgba(0, 0, 0, .095);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .08);
+    border: 1px solid #f3f3f3;
     padding: 1.5rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -176,4 +179,189 @@ div.features-item-data > p.features-item-desc{
     padding-top: .125rem;
     font-size: 13px;
     color: var(--color-gray-primary);
+}
+div.nav-container > div.nav-container-right{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+div#myaccount{
+    display: flex;
+}
+div.nav-user-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 41px;
+    height: 41px;
+    padding: 3px;
+    margin: 0 .5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: .16s ease background-color;
+}
+div.nav-user-button:hover{
+    background-color: #dfdfdf;
+}
+div.nav-user-button:active,
+div.nav-popup.active > div.nav-user-button{
+    background-color: #cfcfcf;
+}
+div.nav-user-button > div.nav-user-button-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+}
+div.nav-user-button > div.profile-picture img{
+    width: 100%;
+    height: 100%;
+}
+div.nav-user-button > div.notification-icon img{
+    width: 20px;
+}
+
+div.nav-popup{
+    position: relative;
+}
+div.nav-popup > div.nav-user-popup{
+    display: block;
+    position: absolute;
+    z-index: 9;
+    top: 100%;
+    right: 0;
+    scale: 0;
+    padding: 1rem 0;
+    transition: .14s ease scale;
+}
+div.nav-popup.active > div.nav-user-popup{
+    scale: 1;
+}
+div.nav-user-popup > div.nav-popup-inner{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    padding: .25rem;
+    margin: 0 .25rem;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .08);
+    border: 1px solid #f3f3f3;
+    border-radius: 12px;
+}
+
+#myaccount div.user-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: .25rem;
+    width: 100%;
+}
+div.user-info > div.user-profile-picture{
+    width: 60px;
+    height: 60px;
+    margin: .5rem;
+    border-radius: 50%;
+    overflow: hidden;
+}
+div.user-info > div.user-profile-picture img{
+    width: 100%;
+    height: 100%;
+}
+div.user-info > div.user-profile-name{
+    padding: .5rem 0;
+    width: 220px;
+}
+div.user-info > div.user-profile-name p{
+    font-size: 16px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+div.user-info > a.user-profile-button{
+    background-color: #fff;
+    font-size: 14px;
+    color: var(--color-primary);
+    border: none;
+    border-radius: 12px;
+    padding: .5rem 1rem;
+    cursor: pointer;
+    transition: .14s ease background-color;
+    text-decoration: none;
+}
+div.user-info > a.user-profile-button:hover{
+    background-color: var(--color-secondary);
+}
+div.user-info > a.user-profile-button:active{
+    background-color: var(--color-secondary-active);
+}
+div#myaccount div.user-menu{
+    display: flex;
+    padding: .25rem;
+    flex-direction: column;
+    width: 100%;
+}
+div.user-menu > div.user-menu-group{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: .25rem 0;
+    width: 100%;
+    border-bottom: 1px solid #f3f3f3;
+}
+div.user-menu > div.user-menu-group:last-child{
+    border: none;
+}
+div.user-menu-group > a{
+    text-decoration: none;
+}
+div.user-menu-group div.user-menu-item{
+    display: flex;
+    align-items: center;
+    margin: .25rem;
+    padding: .5rem 1rem;
+    background-color: #fff;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: .14s ease all;
+}
+div.user-menu-group div.user-menu-item:hover{
+    background-color: var(--color-secondary);
+}
+div.user-menu-group div.user-menu-item:active{
+    background-color: var(--color-secondary-active);
+}
+div.user-menu-group div.user-menu-item svg{
+    height: 18px;
+    margin-right: .5rem;
+    stroke: var(--color-gray-primary);
+    transition: .14s ease stroke;
+}
+div.user-menu-group div.user-menu-item:hover svg{
+    stroke: var(--color-primary);
+}
+div.user-menu-group div.user-menu-item p{
+    font-size: 14px;
+    color: var(--color-gray-primary);
+    transition: .14s ease color;
+    user-select: none;
+}
+div.user-menu-group div.user-menu-item:hover p{
+    color: var(--color-primary);
+}
+div.user-menu-item button{
+    display: flex;
+    align-items: center;
+    border: none;
+    background-color: inherit;
+    cursor: pointer;
+    padding: 0;
+    width: 100%;
+    text-align: left;
 }

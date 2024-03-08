@@ -4,9 +4,9 @@
 	x="0px" y="0px" width="280px" height="280px"
 >
 	<defs>
-		<linearGradient id="bgGradient">
-		<stop stop-color="#df6363" offset="0%" />
-		<stop stop-color="#ffb88c" offset="100%" />
+		<linearGradient id="bgGradient" gradientTransform="rotate(45)">
+			<stop stop-color="#6388df" offset="0%" />
+			<stop stop-color="#959dd8" offset="100%" />
 		</linearGradient>
 	</defs>
 	<path id="Ellipse" d="M 7 140.5 C 7 66.769 66.769 7 140.5 7 C 214.231 7 274 66.769 274 140.5 C 274 214.231 214.231 274 140.5 274 C 66.769 274 7 214.231 7 140.5 Z" fill="url(#bgGradient)"/>

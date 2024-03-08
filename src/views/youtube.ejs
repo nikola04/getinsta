@@ -25,9 +25,14 @@
     <link rel="stylesheet" href="/assets/css/yt.css">
     <script src="/assets/js/nav.js" defer></script>
     <script src="/assets/js/youtube.js" defer></script>
+    <script src="https://accounts.google.com/gsi/client" async></script>
 </head>
 <body>
-    <%- include('nav.ejs') %>
+    <%- include('nav.ejs', { googleId, signedIn, user }) %>
+    <div id="formatsPopupWrapper">
+        <div id="formatsPopup">
+        </div>
+    </div>
     <div id="main">
         <div id="header">
             <h1 class="header-title">Youtube Downloader</h1>
@@ -35,7 +40,7 @@
         </div>
         <div id="pasteYoutubeUrl">
             <div class="yt-input-wrapper">
-                <input type="text" name="youtube-url" id="youtubeUrl" placeholder="Paste your video url here"/>
+                <input type="text" name="youtube-url" autocomplete="off" id="youtubeUrl" placeholder="Paste your video url here"/>
                 <div class="yt-input-buttons" data-display="paste">
                     <div class="yt-input-button paste" onclick="pasteYtUrl()"><img src="/assets/images/clipboard.svg" alt="paste"></div>
                     <div class="yt-input-button search" onclick="trySearchUrl()"><img src="/assets/images/search.svg" alt="search"></div>
@@ -54,6 +59,12 @@
                     <img src="/assets/images/alert-circle.svg" alt="">
                 </div>
                 <p style="color: #f57a7a">This video is not found. Note that video needs to be public.</p>
+            </div>
+            <div class="youtube-url-message rate-limit">
+                <div class="icon">
+                    <img src="/assets/images/alert-circle.svg" alt="">
+                </div>
+                <p style="color: #f57a7a">Sorry. Seems like you have been rate limited. Please try again later.</p>
             </div>
             <div class="youtube-url-message loading">
                 <div class="icon">

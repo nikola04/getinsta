@@ -23,8 +23,9 @@
     <title>Get Insta | Download Instagram Profile, Photos and more</title>
     <link rel="stylesheet" href="/assets/css/nav.css">
     <script src="/assets/js/nav.js" defer></script>
+    <script src="https://accounts.google.com/gsi/client" async></script>
 </head>
 <body>
-    <%- include('nav.ejs') %>
+    <%- include('nav.ejs', { googleId, signedIn, user }) %>
 </body>
 </html>

@@ -20,11 +20,14 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#fbfbfb">
+    <meta name="description" content="Download videos and content from YouTube, Instagram, TikTok and more">
+    <meta name="keywords" content="Downloader, YouTube, 4K, FullHD, Free Download, Instagram, Facebook, TikTok and Twitch">
     <title>Get Insta | Download from YouTube, Instagram, Facebook, TikTok and Twitch</title>
     <link rel="stylesheet" href="/assets/css/nav.css">
     <script src="/assets/js/nav.js" defer></script>
+    <script src="https://accounts.google.com/gsi/client" async></script>
 </head>
 <body>
-    <%- include('nav.ejs') %>
+    <%- include('nav.ejs', { googleId, signedIn, user }) %>
 </body>
 </html>

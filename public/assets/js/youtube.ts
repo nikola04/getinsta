@@ -219,10 +219,10 @@ function createHTMLYoutubeVideo(video: VideoData, formats: GroupedFormats): HTML
         else slctd_quality_val.innerText = `${format.audioBitrate}kbps`
     }
     setSelectedQuality(best_available_format)
-    const select_chevron = document.createElement('img')
-    select_chevron.setAttribute('src', '/assets/images/chevron-down.svg')
+    const select_icon = document.createElement('img')
+    select_icon.setAttribute('src', '/assets/images/tool.svg')
     slctd_quality.appendChild(slctd_quality_val)
-    slctd_quality.appendChild(select_chevron)
+    slctd_quality.appendChild(select_icon)
     //
     const qualities = document.createElement('div')
     qualities.classList.add('qualities')
@@ -314,7 +314,7 @@ function createHTMLYoutubeVideo(video: VideoData, formats: GroupedFormats): HTML
     });
     qualities.appendChild(video_qualities)
     qualities.appendChild(audio_qualities)
-    //qualities.appendChild(av_qualities)
+    qualities.appendChild(av_qualities)
     slctd_quality.addEventListener('click', e => {
         e.stopPropagation()
         closeAllQuantities()
@@ -330,24 +330,28 @@ function createHTMLYoutubeVideo(video: VideoData, formats: GroupedFormats): HTML
 }
 
 let last_searched_url = ''
-async function searchYtUrl(url: string): Promise<boolean>{
-    if(url == last_searched_url) return true
+async function searchYtUrl(url: string, force: boolean = false, forced_times: number = 0): Promise<number>{
+    if(forced_times > 5) return 2
+    if(!force && url == last_searched_url) return 1
     last_searched_url = url
     try{
-        const data = await fetch(`/api/youtube/search/${encodeURIComponent(url)}`).then(async res => {
-            const data = await res.json()
-            if(res.ok) return data;
-            throw new Error(`Code: ${data?.error}, ${data?.message}`)
-        }).catch(er => Error(er))
-        if(data instanceof Error) throw data;
+        const res = await fetch(`/api/youtube/search/${encodeURIComponent(url)}`).catch(er => Error(er))
+        if(res instanceof Error) throw res;
+        if(res.status === 429) {
+            const delay_ms = 250 + (forced_times * 250)
+            console.log('Ratelimited! Retrying in:', delay_ms+'ms')
+            return await new Promise((resolve, rej) => setTimeout(async () => resolve(await searchYtUrl(url, true, forced_times + 1)), delay_ms))
+        }
+        const data = await res.json()
+        if(!res.ok) throw new Error(`Code: ${data?.error}, ${data?.message}`)
         const video = formatVideoData(data.video);
         const formats = groupFormats(data.formats)
         saveVideoLocally(video, formats)
         if(videos_container) videos_container.insertBefore(createHTMLYoutubeVideo(video, formats), videos_container.querySelector('div'))
-        return true
+        return 1
     }catch(err){
         console.error(err)
-        return false
+        return 0
     }
 }
 
@@ -366,7 +370,8 @@ async function trySearchUrl(): Promise<void> {
     if(messages) messages.dataset.message = 'loading'
     const is_valid = await searchYtUrl(url);
     if(!messages) return
-    if(is_valid) messages.dataset.message = ''
+    if(is_valid === 1) messages.dataset.message = ''
+    else if(is_valid === 2) messages.dataset.message = 'rate-limit'
     else messages.dataset.message = 'not-found'
     return
 }
@@ -381,13 +386,25 @@ async function pasteYtUrl(){
     trySearchUrl()
 }
 
+let try_search_onfirst = false
 yt_url?.addEventListener('input', (e) => {
     changeButton(yt_url.value.length === 0 ? ButtonType.Paste : ButtonType.Search)
+    if(try_search_onfirst){
+        if(yt_url.value.length > 0 && YoutubeUrlRegex.test(yt_url.value)) trySearchUrl()
+        try_search_onfirst = false
+        return
+    }
     const messages: null|HTMLDivElement = document.querySelector('#youtubeUrlMessage')
     if(!messages) return
     messages.dataset.message = ''
 })
+yt_url?.addEventListener('keydown', (e) => {
+    const evt: KeyboardEvent = e
+    var ctrlDown = evt.ctrlKey||evt.metaKey // Mac support
+    if (!(ctrlDown && evt.key === 'v')) return
+    try_search_onfirst = true
+})
 yt_url?.addEventListener('keypress', (e) => {
     if(e.key !== 'Enter' || yt_url.value.length == 0) return
-    trySearchUrl()
+    trySearchUrl() // On Enter press
 })

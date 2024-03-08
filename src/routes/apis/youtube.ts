@@ -1,12 +1,25 @@
 import { Router } from 'express';
 import cors from 'cors'
 import ytdl from 'ytdl-core';
+import { rateLimit } from '../../middlewares/ratelimit';
 
 const router = Router()
 
 router.use(cors())
 
-router.get('/download/:url', async (req, res) => {
+router.get('/download/:url', rateLimit({
+    endpoint: '/',
+    rateLimits: {
+        loggedIn: {
+            time: 1000,
+            limit: 1
+        },
+        anonymous: {
+            time: 1000,
+            limit: 5
+        }
+    }
+}, false), async (req, res) => {
     try{
         const url = String(req.params.url);
         const file_name: string = String(req.query.filename);
@@ -16,7 +29,7 @@ router.get('/download/:url', async (req, res) => {
         res.header('Content-Disposition', `attachment; filename="${encodeURIComponent(file_name)}"`);
         ytdl(url, {
             filter: (f) => f.itag === format,
-        }).on('response', response => res.setHeader('Content-Length', response.headers["content-length"])).on('error', err => {
+        }).on('response', response => false && res.set('Content-Length', response.headers["content-length"])).on('error', err => {
             res.removeHeader('Content-Disposition')
             if(err.message.includes('No such format found')) return res.status(404).send({ error: '2', message: 'No such format found.' })
             return res.status(500).send({ error: '3', message: 'Server error while getting format.' })
@@ -27,7 +40,19 @@ router.get('/download/:url', async (req, res) => {
     }
 })
 
-router.get('/search/:url', async (req, res) => {
+router.get('/search/:url', rateLimit({
+    endpoint: '/',
+    rateLimits: {
+        loggedIn: {
+            time: 1000,
+            limit: 1
+        },
+        anonymous: {
+            time: 500,
+            limit: 5
+        }
+    }
+}, false), async (req, res) => {
     try{
         const url = String(req.params.url)
         if(!ytdl.validateURL(url)) return res.status(400).json({ error: '0', message: 'Please enter valid YouTube video url.'})
