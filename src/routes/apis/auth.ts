@@ -50,7 +50,7 @@ async function findOrCreateUser(googleUser: TokenPayload): Promise<UserData>{
 }
 
 router.post('/login', rateLimit({
-    endpoint: '/',
+    endpoint: '/login',
     rateLimits: {
         loggedIn: {
             time: 0,

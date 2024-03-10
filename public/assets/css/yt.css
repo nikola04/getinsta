@@ -71,7 +71,7 @@ div.yt-input-buttons[data-display="paste"] > div.yt-input-button.paste{
 div.yt-input-buttons[data-display="search"] > div.yt-input-button.search{
     display: flex;
 }
-div.yt-input-buttons > div.yt-input-button > img{
+div.yt-input-buttons > div.yt-input-button > svg{
     width: 21px;
     margin-top: -1px;
 }
@@ -112,7 +112,7 @@ div.youtube-url-message > div.icon{
     justify-content: center;
     margin-right: .25rem;
 }
-div.youtube-url-message > div.icon img{
+div.youtube-url-message > div.icon svg{
     width: 18px;
 }
 div.youtube-url-message > p{

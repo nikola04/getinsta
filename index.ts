@@ -38,8 +38,8 @@ app.get('/', rateLimit({
         }
     }
 }), (req: Request, res: Response) => {
-    // return res.redirect(307, '/youtube')
-    res.render('index.ejs', { googleId: process.env.G_CLIENT_ID, signedIn: req.signedIn, user: req.user })
+    return res.redirect(307, '/youtube')
+    // res.render('index.ejs', { googleId: process.env.G_CLIENT_ID, signedIn: req.signedIn, user: req.user })
 })
 
 app.listen(process.env.PORT, () => {

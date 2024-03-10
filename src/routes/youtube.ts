@@ -7,7 +7,7 @@ router.get('/:url', (req, res) => {
 })
 
 router.get('/', rateLimit({
-    endpoint: '/',
+    endpoint: '/youtube',
     rateLimits: {
         loggedIn: {
             time: 1000,

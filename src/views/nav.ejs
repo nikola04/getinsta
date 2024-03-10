@@ -1,64 +1,122 @@
 <% default_picture = "/assets/images/default-user.svg"; %>
+<% platforms = [{
+    name: 'YouTube',
+    desc: 'Download YouTube videos and more.',
+    logo: '/assets/images/youtube-logo.png',
+    tags: ['new']
+},{
+    name: 'Instagram',
+    desc: 'Get instagram profile, photos and more.',
+    logo: '/assets/images/instagram-logo.png',
+    tags: ['disabled']
+// },{
+//     name: 'Facebook',
+//     desc: 'Download Facebook videos and more.',
+//     logo: '/assets/images/facebook-logo.png',
+//     tags: ['soon']
+// },{
+//     name: 'TikTok',
+//     desc: 'Download Tiktoks.',
+//     logo: '/assets/images/tiktok-logo.png',
+//     tags: ['soon']
+// },{
+//     name: 'X',
+//     desc: 'Download media from X.',
+//     logo: '/assets/images/X-logo.png',
+//     tags: ['soon']
+}] %>
 <nav>
     <div class="nav-container">
+        <div class="nav-mobile-wrapper">
+            <div class="nav-mobile-menu-button" id="mobileMenuButton">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div id="navMobileMenu-bgBlur"></div>
+            <div id="navMobileMenu">
+                <div class="mobile-menu-header">
+                    <div class="close" onclick="hideMobileMenu()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </div>
+                </div>
+                <div class="mobile-menu-content">
+                    <a href="" class="mobile-menu-item">
+                        <span>
+                            <div class="mobile-menu-item-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                            </div>
+                            <p>Home</p>
+                        </span>
+                    </a>
+                    <a href="" class="mobile-menu-item">
+                        <span>
+                            <div class="mobile-menu-item-icon">
+                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 256 256" enable-background="new 0 0 256 256" xml:space="preserve">
+                                <g><g><g><path fill="#000000" d="M39.3,10.8c-2.1,1.1-3.8,3.9-3.8,6.1c0,0.8,2.3,6,5.1,11.5c5.3,10.7,6.2,11.8,9.8,12.2c3.7,0.4,7.5-3.1,7.5-6.9c0-2.2-9.8-21.5-11.5-22.6C44.2,9.8,41.4,9.7,39.3,10.8z"/><path fill="#000000" d="M13.6,36.5c-3.6,1.9-4.7,6.5-2.5,9.9C12.3,48.1,31.5,58,33.8,58c3.8,0,7.3-3.8,6.9-7.5c-0.5-3.6-1.6-4.5-12.2-9.8c-5.6-2.8-10.7-5.1-11.5-5.1C16.1,35.5,14.6,36,13.6,36.5z"/><path fill="#000000" d="M82.2,44.9c-0.9,0.4-13.5,12.7-28.1,27.4c-27.8,27.8-27.7,27.8-26.9,31.5c0.5,2.1,95.6,123,97.7,124.2c2.1,1.2,4,1.2,6,0c1-0.5,27-28.3,58.1-61.7c40.8-44,56.5-61.2,56.8-62.4c0.9-3.9,1.1-3.6-26.9-31.6c-14.6-14.6-27.3-27-28.2-27.4c-1.5-0.7-8.4-0.8-54.3-0.8C90.7,44.1,83.6,44.2,82.2,44.9z M98.8,76.7l-9.4,18.7H70.1H50.7l18.7-18.7L88.1,58h10h10L98.8,76.7z M158.6,76.7l9.4,18.7h-31.5h-31.5l9.4-18.7l9.4-18.7h12.8h12.8L158.6,76.7z M203.5,76.7l18.7,18.7h-19.4h-19.3l-9.4-18.7L164.8,58h10h10L203.5,76.7z M100,149.1c6.3,22,11.3,40,11.2,40.1c-0.2,0.2-61.5-77.5-62.5-79.2c-0.4-0.6,3.1-0.7,19.8-0.7h20.2L100,149.1z M168.5,109.6c0,0.6-39.2,91.6-39.4,91.4c-0.1-0.1-5.9-20.3-12.9-44.8c-7-24.6-12.9-45.2-13.1-45.8l-0.3-1.1h32.9C153.7,109.3,168.5,109.4,168.5,109.6z M220.8,111.8c-14.2,15.5-70.1,75.5-70.3,75.3c-0.1-0.1,7.3-17.6,16.5-39l16.7-38.8h19.7h19.8L220.8,111.8z"/></g></g></g>
+                                </svg>
+                            </div>
+                            <p>Plans</p>
+                        </span>
+                    </a>
+                    <div class="mobile-menu-group active">
+                        <a class="mobile-menu-group-header mobile-menu-item">
+                            <span>
+                                <div class="mobile-menu-item-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"/></svg>
+                                </div>
+                                <p>Platforms</p>
+                            </span>
+                        </a>
+                        <div class="mobile-menu-group-content">
+                            <% platforms.forEach(platform => { %>
+                                <a class="mobile-menu-item mobile-menu-group-item" <% if(!platform.tags.includes('soon') && !platform.tags.includes('disabled')) { %> href="/<%= String(platform.name).toLowerCase() %>" <% }else{ %> disabled <% } %>>
+                                    <span>
+                                        <div class="mobile-menu-item-logo <%= platform.name.toLowerCase() %>">
+                                            <img src="<%= platform.logo %>" alt="brand-icon">
+                                        </div>
+                                        <p><%= platform.name %></p>
+                                        <% if(platform.tags.includes('new')) { %>
+                                            <span class="chip new">new</span>
+                                        <% } %>
+                                        <% if(platform.tags.includes('soon')) { %>
+                                            <span class="chip soon">soon</span>
+                                        <% } %>
+                                        <% if(platform.tags.includes('disabled')) { %>
+                                            <span class="chip disabled">disabled</span>
+                                        <% } %>
+                                    </span>
+                                </a>
+                            <% }) %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="nav-container-left">
             <div class="nav-item">
                 <div class="nav-logo">
-                    <img src="/assets/images/logo.svg" alt="">
+                    <img src="/assets/images/logo.svg" alt="logo">
                 </div>
                 <a href="/">
                     <p>GetInsta</p>
                 </a>
             </div>
             <div class="nav-item">
-                <a data-active="false" id="showFeaturesButton"><p>Features</p></a>
+                <a data-active="false" id="showFeaturesButton"><p>Platforms</p></a>
                 <div id="features">
                     <div class="features-container">
-                        <div class="features-item instagram" data-platform="instagram">
+                        <% platforms.forEach(platform => { %>
+                        <div class="features-item <%= String(platform.name).toLowerCase() %>" data-platform="<%= String(platform.name).toLowerCase() %>">
                             <div class="features-item-logo">
-                                <img src="/assets/images/instagram-logo.png" alt="">
+                                <img src="<%= platform.logo %>" alt="brand-icon">
                             </div>
                             <div class="features-item-data">
-                                <p class="features-item-name">Instagram</p>
-                                <p class="features-item-desc">Get instagram profile, photos and more.</p>
+                                <p class="features-item-name"><%= platform.name %></p>
+                                <p class="features-item-desc"><%= platform.desc %>.</p>
                             </div>
                         </div>
-                        <div class="features-item youtube" data-platform="youtube">
-                            <div class="features-item-logo">
-                                <img src="/assets/images/youtube-logo.png" alt="">
-                            </div>
-                            <div class="features-item-data">
-                                <p class="features-item-name">YouTube</p>
-                                <p class="features-item-desc">Download YouTube videos and more.</p>
-                            </div>
-                        </div>
-                        <div class="features-item facebook" data-platform="facebook">
-                            <div class="features-item-logo">
-                                <img src="/assets/images/facebook-logo.png" alt="">
-                            </div>
-                            <div class="features-item-data">
-                                <p class="features-item-name">Facebook</p>
-                                <p class="features-item-desc">Download Facebook videos and more.</p>
-                            </div>
-                        </div>
-                        <div class="features-item tiktok" data-platform="tiktok">
-                            <div class="features-item-logo">
-                                <img src="/assets/images/tiktok-logo.png" alt="">
-                            </div>
-                            <div class="features-item-data">
-                                <p class="features-item-name">TikTok</p>
-                                <p class="features-item-desc">Download Tiktoks.</p>
-                            </div>
-                        </div>
-                        <div class="features-item x" data-platform="x">
-                            <div class="features-item-logo">
-                                <img src="/assets/images/X-logo.png" alt="">
-                            </div>
-                            <div class="features-item-data">
-                                <p class="features-item-name">X</p>
-                                <p class="features-item-desc">Download media from X.</p>
-                            </div>
-                        </div>
+                        <% }) %>
                     </div>
                 </div>
             </div>
@@ -90,10 +148,11 @@
                 </div>
             <% }else{ %>
                 <div id="mynotifications" class="nav-popup">
+                    <div class="nav-popup-background"></div>
                     <!-- <div class="notification-button nav-user-button" data-id="notifications"> -->
                     <div class="notification-button nav-user-button">
                         <div class="notification-icon nav-user-button-icon">
-                            <img src="/assets/images/bell.svg" alt="Bell">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
                         </div>
                     </div>
                     <div class="nav-user-popup">
@@ -101,6 +160,7 @@
                     </div>
                 </div>
                 <div id="myaccount" class="nav-popup">
+                    <div class="nav-popup-background"></div>
                     <div class="profile-button nav-user-button" data-id="account">
                         <div class="profile-picture nav-user-button-icon">
                             <img src="<%- user.picture.url ?? default_picture %>" alt="Profile Picture">
@@ -108,6 +168,14 @@
                     </div>
                     <div class="nav-user-popup">
                         <div class="nav-popup-inner">
+                            <div class="nav-popup-header">
+                                <div class="title">
+                                    <p>My Profile</p>
+                                </div>
+                                <div class="close" onclick="hideAllUserPopups()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                                </div>
+                            </div>
                             <div class="user-info">
                                 <div class="user-profile-picture">
                                     <img src="<%- user.picture.url ?? default_picture %>" alt="Profile Picture">

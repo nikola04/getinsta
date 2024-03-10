@@ -3,7 +3,7 @@ import { rateLimit } from '../middlewares/ratelimit';
 const router = Router()
 
 // router.get('/', ratelimit({
-//     endpoint: '/',
+//     endpoint: '/instagram',
 //     rateLimits: {
 //         loggedIn: {
 //             time: 1000,

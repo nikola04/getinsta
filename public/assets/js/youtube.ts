@@ -21,6 +21,7 @@ interface Format{
     isLive: boolean,
     hasVideo: boolean,
     hasAudio: boolean,
+    mimeType: string,
     fps: number,
     audioSampleRate: string
 }
@@ -136,9 +137,14 @@ function forceDownload(url: string, file_name: string) {
 }
 function downloadFormat(video: VideoData, formats: GroupedFormats, format_itag: number, callback: () => void){
     const format = [...formats.video, ...formats.videoOnly, ...formats.audioOnly].find(format => format.itag === format_itag)
-    if(!format || (format.hasVideo && !format.hasAudio)) return
+    // if(!format || (format.hasVideo && !format.hasAudio)) return
     // show popup
     callback()
+}
+function getFormatExtension(format: Format): string{
+    if(format.mimeType.includes('audio/webm')) return 'webma'
+    if(format.mimeType.includes('audio/mp4')) return 'mp3'
+    return format.container
 }
 function createHTMLYoutubeVideo(video: VideoData, formats: GroupedFormats): HTMLDivElement{
     const video_url = video.url
@@ -198,7 +204,7 @@ function createHTMLYoutubeVideo(video: VideoData, formats: GroupedFormats): HTML
     download_button.dataset.format = String(best_available_format.itag)
     download_button.addEventListener('click', e => downloadFormat(video, formats, Number(download_button.dataset.format), () => {
         const format = String(download_button.dataset.format)
-        const file_name = title + '.' + best_available_format.container
+        const file_name = title + '.' + download_button.dataset.extension
         const request_url = `/api/youtube/download/${encodeURIComponent(video.url)}?filename=${file_name}&format=${format}`
         forceDownload(request_url, file_name)
     }))
@@ -213,8 +219,9 @@ function createHTMLYoutubeVideo(video: VideoData, formats: GroupedFormats): HTML
     // 
     const slctd_quality_val = document.createElement('p')
     const setSelectedQuality = (format: Format) => {
+        const extension: string = getFormatExtension(format)
         download_button.dataset.format = String(format.itag)
-        download_button.dataset.container = String(format.container)
+        download_button.dataset.extension = extension
         if(format.hasVideo) slctd_quality_val.innerText = `${format.qualityLabel} ${format.qualityLabel.includes('HDR') ? '' : format.container}`
         else slctd_quality_val.innerText = `${format.audioBitrate}kbps`
     }
@@ -226,11 +233,12 @@ function createHTMLYoutubeVideo(video: VideoData, formats: GroupedFormats): HTML
     //
     const qualities = document.createElement('div')
     qualities.classList.add('qualities')
-    const createQualityElement = (name: string, itag: number, container: string, fps: null|number = null, tags: string[] = []) => {
+    const createQualityElement = (name: string, format: Format, fps: null|number = null, tags: string[] = []) => {
         const quality = document.createElement('div')
         quality.classList.add('quality')
         const p = document.createElement('p')
         p.appendChild(document.createTextNode(name))
+        if(!format.hasVideo) p.appendChild(document.createTextNode(` ${getFormatExtension(format)}`))
         if(fps) {
             const spanfps = document.createElement('span')
             spanfps.classList.add('fps')
@@ -267,10 +275,10 @@ function createHTMLYoutubeVideo(video: VideoData, formats: GroupedFormats): HTML
         }
         quality.appendChild(chips)
         quality.addEventListener('click', (e) => {
-            const format = [...formats.video, ...formats.videoOnly, ...formats.audioOnly].find(el => el.itag === itag)
-            if(!format) return
-            if(format.hasVideo && !format.hasAudio) return
-            setSelectedQuality(format)
+            const clicked_format = [...formats.video, ...formats.videoOnly, ...formats.audioOnly].find(el => el.itag === format.itag)
+            if(!clicked_format) return
+            // if(format.hasVideo && !format.hasAudio) return
+            setSelectedQuality(clicked_format)
         })
         return quality
     }
@@ -280,7 +288,7 @@ function createHTMLYoutubeVideo(video: VideoData, formats: GroupedFormats): HTML
     const span_av = document.createElement('p')
     span_av.innerText = 'Video Other'
     av_qualities.appendChild(span_av)
-    formats.video.forEach((format: Format) => av_qualities.appendChild(createQualityElement(format.qualityLabel, format.itag, format.container)));
+    formats.video.forEach((format: Format) => av_qualities.appendChild(createQualityElement(format.qualityLabel, format)));
     const audio_qualities = document.createElement('div')
     audio_qualities.classList.add('audio')
     audio_qualities.classList.add('qualities-group')
@@ -289,7 +297,7 @@ function createHTMLYoutubeVideo(video: VideoData, formats: GroupedFormats): HTML
     audio_qualities.appendChild(span_a)
     formats.audioOnly.forEach((format: Format) => {
         const name = `${format.audioBitrate}kbps`
-        audio_qualities.appendChild(createQualityElement(name, format.itag, format.container))
+        audio_qualities.appendChild(createQualityElement(name, format))
     });
     const video_qualities = document.createElement('div')
     video_qualities.classList.add('video')
@@ -310,11 +318,11 @@ function createHTMLYoutubeVideo(video: VideoData, formats: GroupedFormats): HTML
         if(res === 1080) tags.push('FHD')
         if(name.includes('p50')){ fps = 50; name = name.split('p50')[0] + 'p' }
         if(name.includes('p60')){ fps = 60; name = name.split('p60')[0] + 'p' }
-        video_qualities.appendChild(createQualityElement(name, format.itag, format.container, fps, tags))
+        video_qualities.appendChild(createQualityElement(name, format, fps, tags))
     });
-    qualities.appendChild(video_qualities)
-    qualities.appendChild(audio_qualities)
+    // qualities.appendChild(video_qualities)
     qualities.appendChild(av_qualities)
+    qualities.appendChild(audio_qualities)
     slctd_quality.addEventListener('click', e => {
         e.stopPropagation()
         closeAllQuantities()
