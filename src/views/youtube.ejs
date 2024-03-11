@@ -47,10 +47,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <script src="/assets/js/nav.js"></script>
-    <script src="/assets/js/youtube.js"></script>
-    <script src="https://www.google.com/recaptcha/api.js?render=<%= googleRecaptchaKey %>" async></script>
-    <script src="https://accounts.google.com/gsi/client" async></script>
 </head>
 <body>
     <%- include('nav.ejs', { googleId, signedIn, user }) %>
@@ -143,6 +139,13 @@
         </section>
     </div> -->
     <%- include('footer.ejs', { googleRecaptchaKey, color: null }) %>
+    <script src="/assets/js/nav.js"></script>
+    <script src="/assets/js/youtube.js?googlerecaptchakey=<%= googleRecaptchaKey %>"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=<%= googleRecaptchaKey %>" async></script>
+    <script src="https://accounts.google.com/gsi/client" async></script>
+    <script>
+        Variables.init("<%= googleRecaptchaKey %>")
+    </script>
     <% if(url){ %>
     <script type="text/javascript">
         trySearchUrl()

@@ -12,7 +12,7 @@ export interface RecaptchaResponse{
     action?: string
 }
 
-export async function validateToken({ token, ip }: ValidateTokenData): Promise<null|RecaptchaResponse>{
+export async function validateCaptchaToken({ token, ip }: ValidateTokenData): Promise<null|RecaptchaResponse>{
     try{
         const secret = process.env.RECAPTCHA_SECRET ?? ''
         const data = await fetch('https://www.google.com/recaptcha/api/siteverify', {

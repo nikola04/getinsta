@@ -5,6 +5,7 @@ import { rateLimit } from '../../middlewares/ratelimit';
 import ffmpeg from 'ffmpeg-static'
 import { spawn } from 'child_process';
 import { Readable } from 'stream';
+import { validateCaptchaToken } from '../../functions/recaptcha';
 
 const router = Router()
 
@@ -88,15 +89,19 @@ router.get('/search/:url', rateLimit({
 }, false), async (req, res) => {
     try{
         const url = String(req.params.url)
+        const token = req.headers['captcha-token']
         if(!ytdl.validateURL(url)) return res.status(400).json({ error: '0', message: 'YouTube video url is not valid.'})
+        if(!token || typeof token !== 'string') return res.status(400).json({ error: '1', message: 'Token header is not specified.'})
+        const response = await validateCaptchaToken({ token, ip: req.ip })
+        if(!response || response.action != 'youtube_search' || !response.success) return res.status(403).json({ error: 2, message: 'Bot detected.' })
         const id = ytdl.getVideoID(url)
-        if(!id) return res.status(400).json({ error: '0', message: 'YouTube video url is not valid.'})
+        if(!id) return res.status(400).json({ error: '3', message: 'YouTube video url is not valid.'})
         const info = await ytdl.getInfo(id).catch(err => null)
-        if(!info) return res.status(404).json({ error: '1', message: 'Provided YouTube video ID is not found.'})
+        if(!info) return res.status(404).json({ error: '4', message: 'Provided YouTube video ID is not found.'})
         res.status(200).json({ video: info.videoDetails, formats: info.formats })
     }catch(err){
         console.log(err)
-        return res.status(500).json({ code: 2, message: String(err) })
+        return res.status(500).json({ code: 5, message: String(err) })
     }
 })
 

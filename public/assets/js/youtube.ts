@@ -36,6 +36,18 @@ enum ButtonType {
 }
 const YoutubeUrlRegex = /(youtu\.be\/|youtube\.com\/((watch\?(.*&)?v=|(embed|v)\/)|(shorts\/))([^\?&"'>]+))/
 
+const Variables = (function(){
+    let googleKey: string|null = null
+    return {
+        init: function(key: string){
+            googleKey = key
+        },
+        getGoogleRecaptchaKey: function(){
+            return googleKey
+        }
+    }
+})()
+
 function closeAllQuantities(){
     document.querySelectorAll('div.qualities').forEach(el => {
         el.classList.remove('active')
@@ -338,17 +350,22 @@ function createHTMLYoutubeVideo(video: VideoData, formats: GroupedFormats): HTML
 }
 
 let last_searched_url = ''
-async function searchYtUrl(url: string, force: boolean = false, forced_times: number = 0): Promise<number>{
+async function searchYtUrl(url: string, token: string, force: boolean = false, forced_times: number = 0): Promise<number>{
     if(forced_times > 5) return 2
     if(!force && url == last_searched_url) return 1
     last_searched_url = url
     try{
-        const res = await fetch(`/api/youtube/search/${encodeURIComponent(url)}`).catch(er => Error(er))
+        const res = await fetch(`/api/youtube/search/${encodeURIComponent(url)}`, {
+            method: 'GET',
+            headers: {
+                'Captcha-Token': token
+            }
+        }).catch(er => Error(er))
         if(res instanceof Error) throw res;
         if(res.status === 429) {
             const delay_ms = 250 + (forced_times * 250)
             console.log('Ratelimited! Retrying in:', delay_ms+'ms')
-            return await new Promise((resolve, rej) => setTimeout(async () => resolve(await searchYtUrl(url, true, forced_times + 1)), delay_ms))
+            return await new Promise((resolve, rej) => setTimeout(async () => resolve(await searchYtUrl(url, token, true, forced_times + 1)), delay_ms))
         }
         const data = await res.json()
         if(!res.ok) throw new Error(`Code: ${data?.error}, ${data?.message}`)
@@ -381,13 +398,18 @@ async function trySearchUrl(): Promise<void> {
         }
     }
     const messages: null|HTMLDivElement = document.querySelector('#youtubeUrlMessage')
-    if(messages) messages.dataset.message = 'loading'
-    const is_valid = await searchYtUrl(url);
     if(!messages) return
-    if(is_valid === 1) messages.dataset.message = ''
-    else if(is_valid === 2) messages.dataset.message = 'rate-limit'
-    else messages.dataset.message = 'not-found'
-    return
+    messages.dataset.message = 'loading'
+    // @ts-ignore
+    grecaptcha.ready(async () => {
+        // @ts-ignore
+        const token: string = await grecaptcha.execute(Variables.getGoogleRecaptchaKey(), { action: 'youtube_search' });
+        const is_valid = await searchYtUrl(url, token);
+        if(is_valid === 1) messages.dataset.message = ''
+        else if(is_valid === 2) messages.dataset.message = 'rate-limit'
+        else messages.dataset.message = 'not-found'
+        return
+    })
 }
 
 async function pasteYtUrl(){

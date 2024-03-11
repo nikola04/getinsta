@@ -16,5 +16,5 @@ const NewsLetterSchema = new Schema<NewsLetter>({
     }
 })
 
-const Newsletter = model<NewsLetter>('newsletterSubscriptions', NewsLetterSchema)
+const Newsletter = model<NewsLetter>('newslettersubscriptions', NewsLetterSchema)
 export default Newsletter
