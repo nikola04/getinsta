@@ -1,13 +1,10 @@
 import { Router } from 'express';
 import { rateLimit } from '../middlewares/ratelimit';
+import ytdl from 'ytdl-core';
 const router = Router()
 
-router.get('/:url', (req, res) => {
-    res.render('youtube.ejs', { url: req.params.url })
-})
-
 router.get('/', rateLimit({
-    endpoint: '/youtube',
+    endpoint: '/',
     rateLimits: {
         loggedIn: {
             time: 1000,
@@ -19,7 +16,8 @@ router.get('/', rateLimit({
         }
     }
 }), (req, res) => {
-    res.render('youtube.ejs', { googleId: process.env.G_CLIENT_ID, signedIn: req.signedIn, user: req.user })
+    const url = (req.query.url && ytdl.validateURL(String(req.query.url))) ? req.query.url : null
+    res.render('youtube.ejs', { googleId: process.env.G_CLIENT_ID, googleRecaptchaKey: process.env.RECAPTCHA_KEY, signedIn: req.signedIn, user: req.user, url })
 })
 
 

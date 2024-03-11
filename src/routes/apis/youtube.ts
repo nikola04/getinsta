@@ -57,8 +57,8 @@ router.get('/download/:url', rateLimit({
         const url = String(req.params.url);
         const fileName: string = String(req.query.filename);
         const format: number = Number(req.query.format);
-        if(!url || !ytdl.validateURL(url)) return res.status(400).json({ error: '0', message: 'Please enter valid YouTube url.'})
-        if(!fileName || !format) return res.status(400).json({ error: '1', message: 'Please enter valid file name and format.'})
+        if(!url || !ytdl.validateURL(url)) return res.status(400).json({ error: '0', message: 'YouTube url is not valid.'})
+        if(!fileName || !format) return res.status(400).json({ error: '1', message: 'File name or format is not valid.'})
         res.setHeader('Content-Disposition', `attachment; filename="${encodeURIComponent(fileName)}"`);
         ytdl(url, {
             filter: (f) => f.itag === format,
@@ -88,11 +88,11 @@ router.get('/search/:url', rateLimit({
 }, false), async (req, res) => {
     try{
         const url = String(req.params.url)
-        if(!ytdl.validateURL(url)) return res.status(400).json({ error: '0', message: 'Please enter valid YouTube video url.'})
+        if(!ytdl.validateURL(url)) return res.status(400).json({ error: '0', message: 'YouTube video url is not valid.'})
         const id = ytdl.getVideoID(url)
-        if(!id) return res.status(400).json({ error: '0', message: 'Please enter valid YouTube video url.'})
+        if(!id) return res.status(400).json({ error: '0', message: 'YouTube video url is not valid.'})
         const info = await ytdl.getInfo(id).catch(err => null)
-        if(!info) return res.status(404).json({ error: '1', message: 'There is no YouTube video with provided ID.'})
+        if(!info) return res.status(404).json({ error: '1', message: 'Provided YouTube video ID is not found.'})
         res.status(200).json({ video: info.videoDetails, formats: info.formats })
     }catch(err){
         console.log(err)

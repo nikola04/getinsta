@@ -1,0 +1,64 @@
+<footer <% if(color) { %> style="background-color: <%= color %>" <% } %>>
+    <div class="footer-menu">
+        <div class="footer-item-box">
+            <div class="footer-item-title">
+                <img src="/assets/images/logo.svg" style="height: 35px;" alt="Logo">
+                <a href="/">GetInsta</a>
+            </div>
+            <div class="footer-item-content">
+                <p>Download videos and content from YouTube, Instagram, TikTok and more for free.</p>
+            </div>
+        </div>
+        <div class="footer-item-box">
+            <div class="footer-item-title">
+                <p>Platforms</p>
+            </div>
+            <div class="footer-item-content">
+                <a href="/youtube">YouTube</a>
+                <a href="/instagram">Instagram</a>
+            </div>
+        </div>
+        <div class="footer-item-box newsletter">
+            <div class="footer-item-title">
+                <p>Subscribe to Newsletter</p>
+            </div>
+            <div class="footer-item-content">
+                <form action="/api/newsletter" method="POST" id="subscribeNewsletter">
+                    <input type="email" placeholder="Enter your email" id="email" name="email" autocomplete="email" required>
+                    <p>This site is protected by reCAPTCHA and the Google 
+                        <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+                        <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+                    </p>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        <p>Copyright &copy; 2024 by Nikola Nedeljkovic</p>
+        <div class="links">
+            <a href="/privacy" target="_blank">Privacy Policy</a>
+            <a href="/terms" target="_blank">Terms of Service</a>
+        </div>
+    </div>
+</footer>
+<script>
+    document.querySelector('#subscribeNewsletter').addEventListener('submit', async e => {
+        e.preventDefault()
+        grecaptcha.ready(async () => {
+            const token = await grecaptcha.execute("<%= googleRecaptchaKey %>", { action: 'newsletter_subscribe' });
+            const email = e.target.querySelector('input#email').value
+            const response = await fetch('/api/newsletter', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                body: `email=${encodeURIComponent(email)}&token=${encodeURIComponent(token)}`
+            })
+            if(response.status === 200) return alert('You have subscribed successfully.')
+            if(response.status === 409) return alert('You are already subscribed.')
+            if(response.status === 429) return alert('You have been rate limited. Please try again in a minute.')
+            else return alert('Sorry. An error has occured, please try again later.')
+        });
+    })
+</script>

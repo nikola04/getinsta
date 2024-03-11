@@ -1,5 +1,4 @@
 import { Router, urlencoded, Request, Response } from 'express';
-import http from 'http'
 import cookieParser from 'cookie-parser'
 import env from 'dotenv'
 import { OAuth2Client, TokenPayload } from 'google-auth-library';
@@ -27,20 +26,28 @@ async function verifyG(token: string) {
 
 async function findOrCreateUser(googleUser: TokenPayload): Promise<UserData>{
     const userId = googleUser.sub
-    const found = await User.findOne({ google_id: userId }).lean()
+    const found = await User.findOne({ "google.id": userId }).lean()
     if(found) {
-        if(found.picture.source === PictureSource.Google && found.picture.url != googleUser.picture){
-            const new_picture = ({
-                url: googleUser.picture || null,
-                source: PictureSource.Google
-            })
-            await User.updateOne({ _id: found._id }, { $set: { picture: new_picture }})
-            found.picture = new_picture
+        if(googleUser.picture && found.google.picture != googleUser.picture){
+            const google = {
+                ...found.google,
+                picture: googleUser.picture
+            }
+            const picture = {
+                ...found.picture,
+                url: found.picture.source === PictureSource.Google ? googleUser.picture : found.picture.url
+            }
+            await User.updateOne({ _id: found._id }, { $set: { google, picture }})
+            found.google.picture = googleUser.picture
         }
         return found
     }
     return await User.create({
-        google_id: userId,
+        google: {
+            id: userId,
+            email: googleUser.email,
+            picture: googleUser.picture
+        },
         name: googleUser.name,
         picture: {
             url: googleUser.picture,

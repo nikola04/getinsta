@@ -5,13 +5,17 @@ div#main{
     margin: 0 auto;
     padding: 0 .75rem;
 }
-div#header{
+div#main > div.section-header{
     padding: 3rem 0;
 }
-div#header > h1.header-title{
+div.section-header > .header-title{
     text-align: center;
+    font-weight: 500;
 }
-div#header > p.header-desc{
+div#main div.section-header > .header-title{
+    font-weight: 700;
+}
+div.section-header > p.header-desc{
     text-align: center;
     padding: 1rem 0;
     color: var(--color-gray-primary);
@@ -19,12 +23,23 @@ div#header > p.header-desc{
 
 div#pasteYoutubeUrl{
     width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
+}
+div#pasteYoutubeUrl > p{
+    font-size: 12px;
+    padding: .5rem .25rem;
+}
+div#pasteYoutubeUrl > p > a{
+    color: var(--color-primary);
+    text-decoration: none;
 }
 div#pasteYoutubeUrl > div.yt-input-wrapper{
     width: 100%;
-    max-width: 500px;
     position: relative;
 }
 div.yt-input-wrapper > input#youtubeUrl{
@@ -130,7 +145,7 @@ div.youtube-url-message > p{
 div#youtubeVideosWrapper{
     width: 100%;
     max-width: 700px;
-    margin: 0 auto 2rem;
+    margin: 0 auto 4rem;
 }
 div#youtubeVideos{
     display: flex;
@@ -362,7 +377,70 @@ div#formatsPopup{
     border-radius: 12px;
 }
 
+div.section-wrapper{
+    background-color: #f9f9fb;
+    padding: 1.25rem 0;
+}
+
+section#howTo{
+    width: 100%;
+    max-width: var(--max-width);
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 .75rem;
+}
+section > div.section-header{
+    padding: 1.75rem 0;
+}
+section#howTo > div.how-to-steps{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0;
+}
+div.how-to-steps > p.how-to-step{
+    color: var(--color-gray-primary);
+    padding: .75rem 0;
+    text-align: center;
+}
+
+section#faq{
+    width: 100%;
+    max-width: var(--max-width);
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 .75rem;
+}
+section#faq > div.questions{
+    padding: 1rem 0;
+}
+div.questions > div.qa{
+    display: flex;
+    flex-direction: column;
+    padding: .75rem 0;
+}
+div.qa > p.question{
+    font-weight: 500;
+    font-size: 18px;
+    text-align: center;
+    padding: .25rem 0;
+    color: var(--color-gray-primary);
+}
+div.qa > p.answer{
+    line-height: 1.75;
+    text-align: center;
+    padding: .25rem 0;
+    color: var(--color-gray-primary);
+}
+
 @media screen and (max-width: 600px) {
+    #main{
+        min-height: 60vh;
+    }
+    div.qa > p.question,
+    div.qa > p.answer{
+        text-align: justify;
+    }
     div#youtubeVideos > div.youtube-video{
         height: auto;
         flex-direction: column;

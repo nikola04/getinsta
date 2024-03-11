@@ -362,7 +362,6 @@ async function searchYtUrl(url: string, force: boolean = false, forced_times: nu
         return 0
     }
 }
-
 async function trySearchUrl(): Promise<void> {
     const url = yt_url?.value || ''
     if(!YoutubeUrlRegex.test(url)) {
@@ -373,6 +372,13 @@ async function trySearchUrl(): Promise<void> {
         setTimeout(() => input.style.animation = 'bounce .2s ease', 1)
         messages.dataset.message = 'invalid-url'
         return
+    }
+    if(sessionStorage.length > 0){
+        const last_item = sessionStorage.getItem(`youtube_video=${(sessionStorage.length - 1)}`)
+        if(last_item){
+            const parsed = JSON.parse(last_item)
+            if(parsed[0].url == url) return
+        }
     }
     const messages: null|HTMLDivElement = document.querySelector('#youtubeUrlMessage')
     if(messages) messages.dataset.message = 'loading'

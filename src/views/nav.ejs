@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div class="mobile-menu-content">
-                    <a href="" class="mobile-menu-item">
+                    <a href="/" class="mobile-menu-item">
                         <span>
                             <div class="mobile-menu-item-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -60,17 +60,17 @@
                         </span>
                     </a>
                     <div class="mobile-menu-group active">
-                        <a class="mobile-menu-group-header mobile-menu-item">
+                        <span class="mobile-menu-group-header mobile-menu-item">
                             <span>
                                 <div class="mobile-menu-item-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"/></svg>
                                 </div>
                                 <p>Platforms</p>
                             </span>
-                        </a>
+                        </span>
                         <div class="mobile-menu-group-content">
                             <% platforms.forEach(platform => { %>
-                                <a class="mobile-menu-item mobile-menu-group-item" <% if(!platform.tags.includes('soon') && !platform.tags.includes('disabled')) { %> href="/<%= String(platform.name).toLowerCase() %>" <% }else{ %> disabled <% } %>>
+                                <a class="mobile-menu-item mobile-menu-group-item" href="/<%= String(platform.name).toLowerCase() %>" <% if(platform.tags.includes('soon') || platform.tags.includes('disabled')) { %> disabled <% } %>>
                                     <span>
                                         <div class="mobile-menu-item-logo <%= platform.name.toLowerCase() %>">
                                             <img src="<%= platform.logo %>" alt="brand-icon">
@@ -163,7 +163,7 @@
                     <div class="nav-popup-background"></div>
                     <div class="profile-button nav-user-button" data-id="account">
                         <div class="profile-picture nav-user-button-icon">
-                            <img src="<%- user.picture.url ?? default_picture %>" alt="Profile Picture">
+                            <img src="<%- user.picture.url  ?? default_picture %>" alt="Profile Picture">
                         </div>
                     </div>
                     <div class="nav-user-popup">

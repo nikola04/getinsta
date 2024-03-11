@@ -1,0 +1,27 @@
+div.footer-item-box.newsletter{
+    margin-bottom: .5rem;
+}
+div.footer-item-box.newsletter form{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+footer > div.footer-menu{
+    grid-template-columns: minmax(0, 1fr);
+}
+div.footer-menu > div.footer-item-box:last-child{
+    margin-left: initial;
+}
+@media screen and (max-width: 605px) {
+    footer > div.copyright{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    footer > div.copyright p{
+        text-align: left;
+    }
+    footer > div.copyright > div.links{
+        width: 100%;
+        justify-content: space-between;
+    }
+}

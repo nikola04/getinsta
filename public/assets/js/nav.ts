@@ -87,7 +87,7 @@ document.querySelector('div#navMobileMenu')?.addEventListener('click', e => {
     e.stopPropagation()
 })
 
-document.querySelectorAll('a.mobile-menu-group-header')?.forEach(button => button.addEventListener('click', e => {
+document.querySelectorAll('span.mobile-menu-group-header')?.forEach(button => button.addEventListener('click', e => {
     if(!button.parentNode) return
     const parent = button.parentNode as HTMLDivElement
     parent.classList.toggle('active')

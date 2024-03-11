@@ -23,11 +23,21 @@
     <title>Get Insta | Download from YouTube, Instagram, Facebook, TikTok and Twitch</title>
     <meta name="description" content="Download videos and content from YouTube, Instagram, TikTok and more">
     <meta name="keywords" content="Downloader, YouTube, 4K, FullHD, Free Download, Instagram, Facebook, TikTok and Twitch">
-    <link rel="stylesheet" href="/assets/css/nav.css">
+    <link rel="stylesheet" href="/assets/css/nav.css" type="text/css" media="all">
+    <link rel="stylesheet" href="/assets/css/nav-mobile.css" media="screen and (max-width: 600px)">
+    <link rel="stylesheet" href="/assets/css/index.css" media="all">
+    <link rel="stylesheet" href="/assets/css/footer.css" media="all">
+    <link rel="stylesheet" href="/assets/css/footer-mobile.css" media="screen and (max-width: 740px)">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <script src="/assets/js/nav.js" defer></script>
     <script src="https://accounts.google.com/gsi/client" async></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=<%= googleRecaptchaKey %>" async></script>
 </head>
 <body>
     <%- include('nav.ejs', { googleId, signedIn, user }) %>
+    <div id="main"></div>
+    <%- include('footer.ejs', { googleRecaptchaKey, color: '#f9f9fb' }) %>
 </body>
 </html>
