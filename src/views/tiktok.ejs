@@ -36,7 +36,7 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <title>Get Insta | YouTube Downloader | Download Youtube Videos and Shorts</title>
+    <title>Get Insta | TikTok Downloader | Download TikToks for free</title>
     <meta name="description" content="Download YouTube videos and shorts in original resolution">
     <meta name="keywords" content="Downloader, YouTube, youtube, 4K, FullHD, free download, shorts, youtube to mp3, youtube converter, youtube downloader">
     <link rel="stylesheet" href="/assets/css/nav.css" type="text/css" media="all">
@@ -66,12 +66,12 @@
     </div>
     <div id="main">
         <div class="section-header">
-            <h1 class="header-title">Youtube Downloader</h1>
-            <p class="header-desc">Download YouTube videos and shorts in original resolution</p>
+            <h1 class="header-title">TikTok Downloader</h1>
+            <p class="header-desc">Download TikToks for free</p>
         </div>
         <div id="pasteYoutubeUrl">
             <div class="yt-input-wrapper">
-                <input type="text" name="youtube-url" autocomplete="off" value="<%= url %>" id="youtubeUrl" placeholder="Paste your video url here"/>
+                <input type="text" name="youtube-url" autocomplete="off" id="youtubeUrl" placeholder="Paste your tiktok url here"/>
                 <div class="yt-input-buttons" data-display="paste">
                     <div class="yt-input-button paste" onclick="pasteYtUrl()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clipboard"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg></div>
                     <div class="yt-input-button search" onclick="trySearchUrl()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>
@@ -118,48 +118,21 @@
             <div class="section-header">
                 <h2 class="header-title">How to Use Downloader</h1>
             </div>
-            <div class="how-to-steps">
+            <!-- <div class="how-to-steps">
                 <p class="how-to-step">1. Open YouTube video that you want to download in Your browser or mobile app.</p>
                 <p class="how-to-step">2. If You are using browser, copy the URL of that page. If You are on mobile device, tap&nbsp;<b>Share</b>, then&nbsp;<b>Copy link</b>.</p>
                 <p class="how-to-step">3. Paste the link into the search box on this page.</p>
                 <p class="how-to-step">4. Once the video is loaded, select the desired resolution or audio format from the blue config box.</p>
                 <p class="how-to-step">5. Click the download button to start downloading.</p>
-            </div>
+            </div> -->
         </section>
     </div>
-    <!-- <div class="section-wrapper">
-        <section id="faq">
-            <div class="section-header">
-                <h2 class="header-title">Frequently asked questions</h1>
-            </div>
-            <div class="questions">
-                <div class="qa">
-                    <p class="question">Is it legal to download content from YouTube?</p>
-                    <p class="answer"><b>No</b>, unless content is not copyrighted. <br/>To avoid any legal complications, we advise You to get familiar with YouTube's content licensing policies. We strongly urge you to exclusively download content that is either copyright-free or released under an open license for subsequent non-commercial purposes.</p>
-                </div>
-                <div class="qa">
-                    <p class="question">Is our YouTube downloader free to use?</p>
-                    <p class="answer"><b>Yes</b>, if you want to download YouTube original qualities<br/>. Original qualities are all audio formats and video formats 360p or 720p resolutions with audio(Note that 720p exists only if YouTube provides it). For better resolutions with audio like 1080p, 2K or higher you need to be logged in and you still can download it for free with daily limit.</p>
-                </div>
-                <div class="qa">
-                    <p class="question">Are playlists supported?</p>
-                    <p class="answer"><b>No.</b><br/> but they will probably be available in future.</p>
-                </div>
-            </div>
-        </section>
-    </div> -->
     <%- include('footer.ejs', { googleRecaptchaKey, color: null }) %>
     <script src="/assets/js/nav.js"></script>
-    <script src="/assets/js/youtube.js"></script>
     <script src="https://www.google.com/recaptcha/api.js?render=<%= googleRecaptchaKey %>" async></script>
     <script src="https://accounts.google.com/gsi/client" async></script>
     <script>
         Variables.init("<%= googleRecaptchaKey %>")
     </script>
-    <% if(url){ %>
-    <script type="text/javascript">
-        trySearchUrl()
-    </script>
-    <% } %>
 </body>
 </html>

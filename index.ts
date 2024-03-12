@@ -40,7 +40,8 @@ app.get('/', rateLimit({
         }
     }
 }), (req: Request, res: Response) => {
-    res.render('index.ejs', { googleId: process.env.G_CLIENT_ID, googleRecaptchaKey: process.env.RECAPTCHA_KEY, signedIn: req.signedIn, user: req.user })
+    return res.redirect('/youtube')
+    // res.render('index.ejs', { googleId: process.env.G_CLIENT_ID, googleRecaptchaKey: process.env.RECAPTCHA_KEY, signedIn: req.signedIn, user: req.user })
 })
 
 app.get('/privacy', (req, res) => res.sendFile(path.join(__dirname, './documents/privacy-policy.html')))

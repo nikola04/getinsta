@@ -12,7 +12,7 @@ router.get('/', rateLimit({
         },
         anonymous: {
             time: 500,
-            limit: 15
+            limit: 10
         }
     }
 }), (req, res) => {

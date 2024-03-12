@@ -34,6 +34,16 @@
     <script src="/assets/js/nav.js" defer></script>
     <script src="https://accounts.google.com/gsi/client" async></script>
     <script src="https://www.google.com/recaptcha/api.js?render=<%= googleRecaptchaKey %>" async></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1VZ35HQWRC"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ 
+            dataLayer.push(arguments)
+        }
+        gtag('js', new Date())
+        gtag('config', 'G-1VZ35HQWRC')
+    </script>
 </head>
 <body>
     <%- include('nav.ejs', { googleId, signedIn, user }) %>
