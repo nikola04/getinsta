@@ -154,8 +154,6 @@ function downloadFormat(video: VideoData, formats: GroupedFormats, format_itag: 
     callback()
 }
 function getFormatExtension(format: Format): string{
-    if(format.mimeType.includes('audio/webm')) return 'webma'
-    if(format.mimeType.includes('audio/mp4')) return 'mp3'
     return format.container
 }
 function createHTMLYoutubeVideo(video: VideoData, formats: GroupedFormats): HTMLDivElement{
@@ -215,10 +213,15 @@ function createHTMLYoutubeVideo(video: VideoData, formats: GroupedFormats): HTML
     download_button.classList.add('download-format')
     download_button.dataset.format = String(best_available_format.itag)
     download_button.addEventListener('click', e => downloadFormat(video, formats, Number(download_button.dataset.format), () => {
-        const format = String(download_button.dataset.format)
-        const file_name = title + '.' + download_button.dataset.extension
-        const request_url = `/api/youtube/download/${encodeURIComponent(video.url)}?filename=${file_name}&format=${format}`
-        forceDownload(request_url, file_name)
+        // @ts-ignore
+        grecaptcha.ready(async () => {
+            // @ts-ignore
+            const token: string = await grecaptcha.execute(Variables.getGoogleRecaptchaKey(), { action: 'youtube_download' });
+            const format = String(download_button.dataset.format)
+            const file_name = title + '.' + download_button.dataset.extension
+            const request_url = `/api/youtube/download/${encodeURIComponent(video.url)}?filename=${encodeURIComponent(file_name)}&format=${format}&token=${encodeURIComponent(token)}`
+            forceDownload(request_url, file_name)
+        })
     }))
     const download_icon = document.createElement('img')
     download_icon.setAttribute('src', '/assets/images/download.svg')

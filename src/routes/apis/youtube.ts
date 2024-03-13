@@ -5,7 +5,7 @@ import { rateLimit } from '../../middlewares/ratelimit';
 import ffmpeg from 'ffmpeg-static'
 import { spawn } from 'child_process';
 import { Readable } from 'stream';
-import { validateCaptchaToken } from '../../functions/recaptcha';
+import { validateCaptchaToken, validateCatpchaResponse } from '../../functions/recaptcha';
 
 const router = Router()
 
@@ -58,8 +58,12 @@ router.get('/download/:url', rateLimit({
         const url = String(req.params.url);
         const fileName: string = String(req.query.filename);
         const format: number = Number(req.query.format);
+        const token = req.query.token;
         if(!url || !ytdl.validateURL(url)) return res.status(400).json({ error: '0', message: 'YouTube url is not valid.'})
-        if(!fileName || !format) return res.status(400).json({ error: '1', message: 'File name or format is not valid.'})
+        if(!fileName || !format) return res.status(400).json({ error: '1', message: 'File name or format is not provided.'})
+        if(!token || typeof token !== 'string') return res.status(400).json({ error: '1', message: 'reCAPTCHA token is not provided.'})
+        const tokenResponse = await validateCaptchaToken({ token, ip: req.ip })
+        if(!validateCatpchaResponse(tokenResponse, 'youtube_download')) return res.status(403).json({ error: 2, message: 'Bot detected.' })
         res.setHeader('Content-Disposition', `attachment; filename="${encodeURIComponent(fileName)}"`);
         ytdl(url, {
             filter: (f) => f.itag === format,
@@ -91,9 +95,9 @@ router.get('/search/:url', rateLimit({
         const url = String(req.params.url)
         const token = req.headers['captcha-token']
         if(!ytdl.validateURL(url)) return res.status(400).json({ error: '0', message: 'YouTube video url is not valid.'})
-        if(!token || typeof token !== 'string') return res.status(400).json({ error: '1', message: 'Token header is not specified.'})
-        const response = await validateCaptchaToken({ token, ip: req.ip })
-        if(!response || response.action != 'youtube_search' || !response.success) return res.status(403).json({ error: 2, message: 'Bot detected.' })
+        if(!token || typeof token !== 'string') return res.status(400).json({ error: '1', message: 'reCAPTCHA token header is not specified.'})
+        const tokenResponse = await validateCaptchaToken({ token, ip: req.ip })
+        if(!validateCatpchaResponse(tokenResponse, 'youtube_search')) return res.status(403).json({ error: 2, message: 'Bot detected.' })
         const id = ytdl.getVideoID(url)
         if(!id) return res.status(400).json({ error: '3', message: 'YouTube video url is not valid.'})
         const info = await ytdl.getInfo(id).catch(err => null)
