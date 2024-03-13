@@ -71,6 +71,7 @@ div.footer-item-box > div.footer-item-title a{
 div.footer-item-box > div.footer-item-content{
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
 }
 div.footer-item-box > div.footer-item-content p,
 div.footer-item-box > div.footer-item-content a{
