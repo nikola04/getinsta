@@ -6,15 +6,17 @@ export enum PictureSource{
 }
 
 export interface UserData extends Document{
-    name: null|string,
+    name?: string,
+    email?: string,
+    verified_email?: boolean,
     google: {
         id: string,
-        email: null|string,
-        picture: null|string
+        email?: string,
+        picture?: string
     },
     picture: {
-        url: null|String,
-        source: null|PictureSource
+        url?: String,
+        source?: PictureSource
     },
     created: Date
 }
@@ -23,6 +25,14 @@ export const UserSchema = new Schema<UserData>({
     name: {
         type: String,
         default: null
+    },
+    email: {
+        type: String,
+        default: null
+    },
+    verified_email: {
+        type: Boolean,
+        default: false
     },
     google: {
         id: String,
