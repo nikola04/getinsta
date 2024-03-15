@@ -112,12 +112,23 @@
                 <div id="features">
                     <div class="features-container">
                         <% platforms.forEach(platform => { %>
-                        <div class="features-item <%= String(platform.name).toLowerCase() %>" data-platform="<%= String(platform.name).toLowerCase() %>">
+                        <div class="features-item <%= String(platform.name).toLowerCase() %>" data-platform="<%= String(platform.name).toLowerCase() %>" <% if(platform.tags.includes('soon') || platform.tags.includes('disabled')) { %> disabled <% } %>>
                             <div class="features-item-logo">
                                 <img src="<%= platform.logo %>" alt="brand-icon">
                             </div>
                             <div class="features-item-data">
-                                <p class="features-item-name"><%= platform.name %></p>
+                                <div class="features-item-header">
+                                    <p class="features-item-name"><%= platform.name %></p>
+                                    <% if(platform.tags.includes('new')) { %>
+                                        <span class="chip new">new</span>
+                                    <% } %>
+                                    <% if(platform.tags.includes('soon')) { %>
+                                        <span class="chip soon">soon</span>
+                                    <% } %>
+                                    <% if(platform.tags.includes('disabled')) { %>
+                                        <span class="chip disabled">disabled</span>
+                                    <% } %>
+                                </div>
                                 <p class="features-item-desc"><%= platform.desc %>.</p>
                             </div>
                         </div>
