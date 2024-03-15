@@ -57,7 +57,7 @@ div.mobile-menu-content span.mobile-menu-item{
     margin: .25rem;
     text-decoration: none;
 }
-div.mobile-menu-content a.mobile-menu-item:disabled{
+div.mobile-menu-content a.mobile-menu-item[disabled]{
     pointer-events: none;
 }
 div.mobile-menu-content a.mobile-menu-item span,
@@ -139,7 +139,7 @@ div.mobile-menu-group a.mobile-menu-item span.chip{
 }
 div.mobile-menu-group a.mobile-menu-item span.chip.soon{
     background-color: #e7fae1;
-    color: #3c9d34;
+    color: #2d7f26;
 }
 div.mobile-menu-group a.mobile-menu-item span.chip.disabled{
     background-color: #fae1e1;
