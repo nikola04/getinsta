@@ -3,6 +3,7 @@ import env from 'dotenv'
 import mongoose from 'mongoose'
 import cookieParser from 'cookie-parser'
 // routers
+import accountRouter from './src/routes/account'
 import youtubeRouter from './src/routes/youtube'
 import authRouter from './src/routes/apis/auth'
 import youtubeApiRouter from './src/routes/apis/youtube'
@@ -22,6 +23,7 @@ app.use(express.static('global'))
 app.use(express.static('public'))
 app.use(cookieParser())
 app.use(authenticate)
+app.use('/account', accountRouter)
 app.use('/auth', authRouter)
 app.use('/youtube', youtubeRouter)
 app.use('/api/newsletter', newsletterApiRouter)

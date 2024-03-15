@@ -1,0 +1,290 @@
+div#pageLoading{
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+}
+div#pageLoading.active{
+    display: block;
+}
+div#pageLoading > div#pageLoadingBar{
+    position: relative;
+    width: 100%;
+    height: 4px;
+}
+div#pageLoading.active div#pageLoadingBar > div.loaded{
+    position: absolute;
+    height: 100%;
+    animation: 1s ease infinite loadingBar;
+    background-color: var(--color-primary);
+}
+@keyframes loadingBar {
+    0%{
+        width: 0;
+    }
+    75%{
+        width: 100%;
+        left: 0;
+    }
+    100%{
+        left: 100%;
+        width: 0;
+    }
+}
+div#pageLoading > div#pageLoadingBlur{
+    width: 100%;
+    height: 100%;
+    background-color: #f5f6fb;
+    opacity: .55;
+}
+div#main{
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 250px minmax(0, 1fr);
+    grid-template-rows: 1fr;
+    gap: 2rem;
+    padding: 3rem .75rem;
+}
+div#sideMenu{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 0 .5rem;
+}
+div#sideMenu div.side-menu-group{
+    padding: .25rem 0;
+}
+div#sideMenu div.side-menu-group > p{
+    font-size: 14px;
+    padding: .25rem 0;
+}
+div#sideMenu a.side-menu-item{
+    display: flex;
+    padding: .5rem;
+    margin: .25rem 0;
+    border-radius: var(--border-radius-inner);
+    font-size: 15px;
+    /* font-weight: 500; */
+    color: var(--color-gray-primary);
+    cursor: pointer;
+    transition: .14s ease all;
+    user-select: none;
+    text-decoration: none;
+}
+div#sideMenu a.side-menu-item.active{
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
+    pointer-events: none;
+}
+div#sideMenu a.side-menu-item:hover{
+    background-color: #f5f6fb;
+}
+div#sideMenu a.side-menu-item span{
+    display: flex;
+    align-items: center;
+}
+div#sideMenu a.side-menu-item span div.icon{
+    margin-right: .75rem;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+div#sideMenu a.side-menu-item span div.icon svg{
+    width: 100%;
+    height: 100%;
+}
+
+div#accountContainer{
+    padding: 0 .5rem;
+}
+div#accountContainer div.container-group{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .5rem 1rem;
+    margin: .5rem 0;
+    border-radius: var(--border-radius-inner);
+    transition: .14s ease all;
+}
+div#accountContainer a div.container-group{
+    cursor: pointer;
+}
+div#accountContainer a div.container-group:hover{
+    background-color: #f5f6fb;
+}
+div#accountContainer a{
+    text-decoration: none;
+    color: var(--color-gray-primary);
+}
+div.group-details > p.heading-text{
+    font-size: 14px;
+    font-weight: 500;
+    padding: .25rem 0;
+}
+div.group-details > div.group-value{
+    display: flex;
+    align-items: center;
+    padding: .25rem 0;
+}
+div.group-details > div.group-value > p{
+    font-size: 15px;
+    color: var(--color-gray-primary);
+}
+div.group-value > span.chip{
+    font-size: 12px;
+    margin: 0 1rem;
+    padding: .25rem .5rem;
+    border-radius: var(--border-radius-inner);
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
+    text-transform: capitalize;
+}
+div.group-value > span.chip.red{
+    color: #df6363;
+    background-color: #f9e8e8;
+}
+div.group-action{
+    display: flex;
+    align-items: center;
+    color: var(--color-gray-primary);
+}
+div.group-action > div.user-image{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 1rem;
+}
+div.group-action > div.user-image img{
+    width: 100%;
+    height: 100%;
+}
+
+div#settingsContainer{
+    padding: 0 .5rem;
+}
+div#settingsContainer > h2{
+    font-size: 1.25rem;
+    padding: .5rem 1rem;
+    color: var(--color-gray-primary);
+}
+div#settingsContainer > h2:not(:first-child){
+    padding-top: 2rem;
+}
+div#settingsContainer > div.settings-group{
+    padding: .5rem 0;
+    display: flex;
+    flex-direction: column;
+}
+div.settings-group > div.setting-wrapper input{
+    display: none;
+}
+div.setting-wrapper div.setting{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .5rem 1rem;
+    margin: .5rem 0;
+    border-radius: var(--border-radius-inner);
+    transition: .14s ease all;
+}
+div.setting-wrapper div.setting:not(.not-clickable):hover{
+    background-color: #f5f6fb;
+    cursor: pointer;
+}
+div.setting > div.setting-data{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+div.setting > div.setting-data p.setting-name{
+    font-size: 15px;
+    font-weight: 500;
+    padding: .25rem 0;
+    color: var(--color-gray-primary);
+}
+div.setting > div.setting-data p.setting-desc{
+    padding: .25rem 0;
+    color: var(--color-gray-primary);
+    font-size: 14px;
+}
+div.setting > div.setting-actions button{
+    cursor: pointer;
+    padding: .5rem .75rem;
+    border: none;
+    border-radius: var(--border-radius-inner);
+    background-color: #424959;
+    color: #fff;
+    transition: .14s ease all;
+}
+div.setting > div.setting-actions button:hover{
+    background-color: #3b404e;
+}
+div.setting > div.setting-actions button:active{
+    background-color: #353a46;
+}
+
+div.toggle-switch{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 52px;
+    height: 26px;
+    border-radius: 15px;
+    background-color: #424959;
+}
+div.toggle-switch::before{
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow: 0 0 3px rgba(0, 0, 0, .33);
+    transition: .28s ease all;
+}
+input:checked + label div.toggle-switch{
+    background-color: var(--color-primary);
+}
+input:checked + label div.toggle-switch::before{
+    left: 28px;
+}
+div.toggle-switch svg{
+    width: 16px;
+    height: 16px;
+    color: #fff;
+    font-weight: bold;
+    stroke-width: 3px;
+    transition: .18s ease all;
+    opacity: 0;
+    scale: .5;
+}
+div.toggle-switch svg:first-child{
+    scale: .5;
+    opacity: 0;
+}
+div.toggle-switch svg:last-child{
+    opacity: 1;
+    scale: 1;
+}
+input:checked + label div.toggle-switch svg:first-child{
+    scale: 1;
+    opacity: 1;
+}
+input:checked + label div.toggle-switch svg:last-child{
+    scale: .5;
+    opacity: 0;
+}

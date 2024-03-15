@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#fbfbfb">
+    <title>My Account - Get Insta | Download from YouTube, Instagram, Facebook, TikTok and Twitch</title>
+    <meta name="description" content="Download videos and content from YouTube, Instagram, TikTok and more">
+    <meta name="keywords" content="Downloader, YouTube, 4K, FullHD, Free Download, Instagram, Facebook, TikTok and Twitch">
+    <link rel="stylesheet" href="/assets/css/nav.css" type="text/css" media="all">
+    <link rel="stylesheet" href="/assets/css/nav-mobile.css" media="screen and (max-width: 600px)">
+    <link rel="stylesheet" href="/assets/css/account.css" media="all">
+    <link rel="stylesheet" href="/assets/css/footer.css" media="all">
+    <link rel="stylesheet" href="/assets/css/footer-mobile.css" media="screen and (max-width: 740px)">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="/assets/js/nav.js" defer></script>
+    <script src="/assets/js/account.js" defer></script>
+    <script src="https://accounts.google.com/gsi/client" async></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=<%= googleRecaptchaKey %>" async></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1VZ35HQWRC"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ 
+            dataLayer.push(arguments)
+        }
+        gtag('js', new Date())
+        gtag('config', 'G-1VZ35HQWRC')
+    </script>
+</head>
+<body>
+    <div id="pageLoading">
+        <div id="pageLoadingBar">
+            <div class="loaded"></div>
+        </div>
+        <div id="pageLoadingBlur"></div>
+    </div>
+    <%- include('nav.ejs', { googleId, signedIn, user }) %>
+    <div id="main">
+        <div id="sideMenu">
+            <div class="side-menu-group">
+                <p>Account</p>
+                <a class="side-menu-item <%= page === 'info' ? 'active' : '' %>" href="/account/">
+                    <span>
+                        <div class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        </div>
+                        <p>Personal Info</p>
+                    </span>
+                </a>
+                <a class="side-menu-item <%= page === 'settings' ? 'active' : '' %>" href="/account/settings">
+                    <span>
+                        <div class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                        </div>
+                        <p>Settings</p>
+                    </span>
+                </a>
+                <a class="side-menu-item <%= page === 'subscriptions' ? 'active' : '' %>" href="/account/subscriptions">
+                    <span>
+                        <div class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        </div>
+                        <p>Subscriptions</p>
+                    </span>
+                </a>
+            </div>
+            <div class="side-menu-group">
+                <p>Services</p>
+                <a class="side-menu-item" href="/account/downloads">
+                    <span>
+                        <div class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        </div>
+                        <p>Downloads</p>
+                    </span>
+                </a>
+            </div>
+        </div>
+        <div id="mainWrapper">
+            <% if(page === 'info'){ %>
+                <%- include('account/info.ejs', { user }) %>
+            <% }else if(page === 'settings'){ %>
+                <%- include('account/settings.ejs', { user }) %>
+            <% }else if(page === 'subscriptions'){ %>
+                <%- include('account/subscriptions.ejs', { user }) %>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>

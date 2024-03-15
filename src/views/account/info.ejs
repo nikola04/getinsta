@@ -1,0 +1,73 @@
+<div id="accountContainer">
+    <a href="picture" class="account-button" id="accountPhotoButton">
+        <span>
+            <div class="container-group">
+                <div class="group-details">
+                    <p class="heading-text">Account Picture</p>
+                    <div class="group-value">
+                        <% if(user.picture.url){ %>
+                            <span class="chip" style="margin: 0;"><%= (user.picture.source === 'user') ? 'user upload' : user.picture.source %></span>
+                        <% }else{ %>
+                            <span class="chip red" style="margin: 0;">not set</p>
+                        <% } %>
+                    </div>
+                </div>
+                <div class="group-action">
+                    <% if(user.picture.url){ %>
+                        <div class="user-image">
+                            <img src="<%= user.picture.url %>" alt="User Picture">
+                        </div>
+                    <% } %>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"/></svg>
+                </div>
+            </div>
+        </span>
+    </a>
+    <a href="name" class="account-button" id="accountNameButton">
+        <span>
+            <div class="container-group">
+                <div class="group-details">
+                    <p class="heading-text">Full Name</p>
+                    <div class="group-value">
+                        <p class="value"><%= user.name %></p>
+                    </div>
+                </div>
+                <div class="group-data">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"/></svg>
+                </div>
+            </div>
+        </span>
+    </a>
+    <a href="email" class="account-button" id="accountEmailButton">
+        <span>
+            <div class="container-group">
+                <div class="group-details">
+                    <p class="heading-text">Email Address</p>
+                    <div class="group-value">
+                        <% if(user.email){ %>
+                            <p class="value"><%= user.email %></p>
+                            <% if(user.verified_email){ %><span class="chip green">verified</span><% }else{ %><span class="chip red">unverified</span><% } %>
+                        <% }else{ %>
+                            <p class="value">Not set</p>
+                        <% } %>
+                    </div>
+                </div>
+                <div class="group-action">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"/></svg>
+                </div>
+            </div>
+        </span>
+    </a>
+    <p class="account-button">
+        <span>
+            <div class="container-group">
+                <div class="group-details">
+                    <p class="heading-text">Register Date</p>
+                    <div class="group-value">
+                        <p class="value"><%= new Date(user.created).toLocaleDateString() %></p>
+                    </div>
+                </div>
+            </div>
+        </span>
+    </p>
+</div>
