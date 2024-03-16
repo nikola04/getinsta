@@ -5,7 +5,7 @@ export function logAPI(api: string){
     return function (req: Request, res: Response, next: NextFunction){
         const ip = req.ip
         const ua = req.headers['user-agent']
-        const account_id = req.signedIn ? req.user._id : null
+        const account_id = req.user?._id ?? null
         ApiCall.create({
             api,
             account_id,
