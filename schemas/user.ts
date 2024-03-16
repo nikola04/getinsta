@@ -8,6 +8,10 @@ export enum PictureSource{
 export interface UserData extends Document{
     name?: string,
     email?: string,
+    email_preferences: {
+        security_emails: Boolean,
+        newsletter_emails: Boolean
+    },
     verified_email?: boolean,
     google: {
         id: string,
@@ -18,6 +22,7 @@ export interface UserData extends Document{
         url?: String,
         source?: PictureSource
     },
+    save_downloads: Boolean,
     created: Date
 }
 
@@ -29,6 +34,16 @@ export const UserSchema = new Schema<UserData>({
     email: {
         type: String,
         default: null
+    },
+    email_preferences: {
+        security_emails: {
+            type: Boolean,
+            default: true
+        },
+        newsletter_emails: {
+            type: Boolean,
+            default: false
+        }
     },
     verified_email: {
         type: Boolean,
@@ -49,6 +64,10 @@ export const UserSchema = new Schema<UserData>({
             enum: PictureSource,
             default: null
         }
+    },
+    save_downloads: {
+        type: Boolean,
+        default: true
     },
     created: {
         type: Date,

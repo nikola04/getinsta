@@ -10,7 +10,7 @@
     <h2>Email Settings</h2>
     <div class="settings-group">
         <div class="setting-wrapper">
-            <input type="checkbox" name="security-emails" id="securityEmails">
+            <input type="checkbox" name="security-emails" id="securityEmails" <%= (user.email_preferences?.security_emails) ? 'checked' : '' %>>
             <label for="securityEmails">
                 <span>
                     <div class="setting">
@@ -29,7 +29,7 @@
             </label>
         </div>
         <div class="setting-wrapper">
-            <input type="checkbox" name="newsletter-emails" id="newsletterEmails">
+            <input type="checkbox" name="newsletter-emails" id="newsletterEmails" <%= (user.email_preferences?.newsletter_emails) ? 'checked' : '' %>>
             <label for="newsletterEmails">
                 <div class="setting">
                     <div class="setting-data">
@@ -51,7 +51,7 @@
     <h2>Service Settings</h2>
     <div class="settings-group">
         <div class="setting-wrapper">
-            <input type="checkbox" name="save-downloads" id="saveDownloads">
+            <input type="checkbox" name="save-downloads" id="saveDownloads" <%= (user.save_downloads) ? 'checked' : '' %>>
             <label for="saveDownloads">
                 <div class="setting">
                     <div class="setting-data">

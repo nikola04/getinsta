@@ -48,6 +48,8 @@ async function findOrCreateUser(googleUser: TokenPayload): Promise<UserData>{
             email: googleUser.email,
             picture: googleUser.picture
         },
+        email: googleUser.email,
+        verified_email: true,
         name: googleUser.name,
         picture: {
             url: googleUser.picture,
