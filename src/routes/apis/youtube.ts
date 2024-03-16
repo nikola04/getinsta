@@ -6,6 +6,7 @@ import ffmpeg from 'ffmpeg-static'
 import { spawn } from 'child_process';
 import { Readable } from 'stream';
 import { validateCaptchaToken, validateCatpchaResponse } from '../../functions/recaptcha';
+import { logAPI } from '../../middlewares/apilog';
 
 const router = Router()
 
@@ -53,7 +54,7 @@ router.get('/download/:url', rateLimit({
             limit: 5
         }
     }
-}, false), async (req, res) => {
+}, false), logAPI('youtube/download'), async (req, res) => {
     try{
         const url = String(req.params.url);
         const fileName: string = String(req.query.filename);
@@ -90,7 +91,7 @@ router.get('/search/:url', rateLimit({
             limit: 5
         }
     }
-}, false), async (req, res) => {
+}, false), logAPI('youtube/search'), async (req, res) => {
     try{
         const url = String(req.params.url)
         const token = req.headers['captcha-token']
