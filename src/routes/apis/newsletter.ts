@@ -19,10 +19,10 @@ router.post('/', rateLimit({
             limit: 3
         }
     }
-}), logAPI('newsletter/subscribe'), urlencoded({ extended: true }), async (req: Request, res: Response) => {
+}, false), logAPI('newsletter/subscribe'), urlencoded({ extended: true }), async (req: Request, res: Response) => {
     try{
-        const email: undefined|string = req.body.email
-        const token: undefined|string = req.body.token
+        const email: null|string = req.body?.email
+        const token: null|string = req.body?.token
         if(!email) return res.status(400).json({ error: 0, message: 'Email is not provided.' })
         if(!token) return res.status(400).json({ error: 1, message: 'Token is not provided.' })
         if(!EmailRegex.test(email)) return res.status(400).json({ error: 2, message: 'Email is not valid.' })

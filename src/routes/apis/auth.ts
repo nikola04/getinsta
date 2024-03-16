@@ -73,7 +73,7 @@ router.post('/login', rateLimit({
 }), urlencoded({ extended: true }), async (req: Request, res: Response) => {
     try{
         if(req.signedIn) return res.status(400).json({ error: 1, message: 'You are already logged in' })
-        const { credential, g_csrf_token } = req.body
+        const { credential, g_csrf_token }: ({ credential: null|string, g_csrf_token: null|string }) = req.body
         if(!credential || !g_csrf_token || !req.cookies['g_csrf_token']) return res.status(400).json({ error: 0, message: 'Google credential and csrf token are required.'})
         if(g_csrf_token !== req.cookies['g_csrf_token']) return res.status(403).json({ error: 2, message: 'CSRF tokens are not valid.'})
         const googleUser = await verifyG(credential)
