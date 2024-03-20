@@ -24,7 +24,7 @@ async function verifyG(token: string) {
     return payload
 }
 
-async function findOrCreateUser(googleUser: TokenPayload): Promise<UserData>{
+async function findOrCreateGoogleUser(googleUser: TokenPayload): Promise<UserData>{
     const userId = googleUser.sub
     const found = await User.findOne({ "google.id": userId }).lean()
     if(found) {
@@ -50,7 +50,10 @@ async function findOrCreateUser(googleUser: TokenPayload): Promise<UserData>{
         },
         email: googleUser.email,
         verified_email: true,
-        name: googleUser.name,
+        name: {
+            first_name: googleUser.given_name,
+            last_name: googleUser.family_name
+        },
         picture: {
             url: googleUser.picture,
             source: googleUser.picture ? PictureSource.Google : null
@@ -78,11 +81,11 @@ router.post('/login', rateLimit({
         if(g_csrf_token !== req.cookies['g_csrf_token']) return res.status(403).json({ error: 2, message: 'CSRF tokens are not valid.'})
         const googleUser = await verifyG(credential)
         if(!googleUser) return res.status(403).json({ error: 3, message: 'Token is not validated.'})
-        const user: UserData = await findOrCreateUser(googleUser);
+        const user: UserData = await findOrCreateGoogleUser(googleUser);
         const token: string = jwt.sign({
             userId: user._id
         }, privateKey, { algorithm: 'RS512', expiresIn: '72h' })
-        res.cookie('access_token', token, { httpOnly: true, secure: true, maxAge: 72 * 3600 * 1000, sameSite: 'strict' })
+        res.cookie('access_token', token, { httpOnly: true, secure: true, maxAge: 72 * 3600 * 1000, sameSite: 'strict', domain: '.getinsta.xyz' })
         return res.status(200).redirect('/')
     }catch(err){
         return res.status(500).json({ error: 4, message: String(err) }) 
@@ -90,8 +93,8 @@ router.post('/login', rateLimit({
 })
 
 router.post('/logout', (req, res) => {
-    res.cookie('access_token', '', { maxAge: -1 })
-    res.cookie('logged_out', '1', { maxAge: 30 * 1000 })
+    res.cookie('access_token', '', { httpOnly: true, secure: true, maxAge: -1, sameSite: 'strict', domain: '.getinsta.xyz' })
+    // res.cookie('logged_out', '1', { maxAge: 30 * 1000 })
     res.redirect(303, '/')
 })
 
