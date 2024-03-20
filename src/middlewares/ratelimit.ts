@@ -24,7 +24,7 @@ export function rateLimit(rule: RateLimit, sendPageOnError: boolean = true){
         const key = `${(req.signedIn ? req.user?._id : 'anonym')}@${req.ip}#${rule.endpoint}`
         const requests: number = await redisClient.incr(key)
         const rateLimit = req.signedIn ? rule.rateLimits.loggedIn : rule.rateLimits.anonymous
-        if(rateLimit == null) next()
+        if(rateLimit == null) return next()
         if(requests === 1){
             await redisClient.pExpire(key, rateLimit?.time)
         }else if(requests > rateLimit.limit){
