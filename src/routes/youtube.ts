@@ -16,8 +16,9 @@ router.get('/', rateLimit({
         }
     }
 }), (req, res) => {
+    const nonceHex = res.locals.nonce
     const url = (req.query.url && ytdl.validateURL(String(req.query.url))) ? req.query.url : null
-    res.render('youtube.ejs', { googleId: process.env.G_CLIENT_ID, googleRecaptchaKey: process.env.RECAPTCHA_KEY, signedIn: req.signedIn, user: req.user, url })
+    res.render('youtube.ejs', { googleId: process.env.G_CLIENT_ID, googleRecaptchaKey: process.env.RECAPTCHA_KEY, nonceHex, signedIn: req.signedIn, user: req.user, url })
 })
 
 
