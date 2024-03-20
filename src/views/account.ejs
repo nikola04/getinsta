@@ -33,12 +33,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <script src="/assets/js/nav.js" defer></script>
     <script src="/assets/js/account.js" defer></script>
+    <script>
+        window.accountPreferences = window.accountPreferences || {}
+        const getBooleanFromString = (str) => str === 'true' ?? false
+        window.accountPreferences.newsletter_emails = getBooleanFromString(`<%= user.email_preferences.newsletter_emails %>`)
+        window.accountPreferences.security_emails = getBooleanFromString(`<%= user.email_preferences.security_emails %>`)
+        window.accountPreferences.save_downloads = getBooleanFromString(`<%= user.save_downloads %>`)
+    </script>
     <script src="https://accounts.google.com/gsi/client" async></script>
     <script src="https://www.google.com/recaptcha/api.js?render=<%= googleRecaptchaKey %>" async></script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1VZ35HQWRC"></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
+        window.dataLayer = window.dataLayer || []
         function gtag(){ 
             dataLayer.push(arguments)
         }
@@ -58,7 +65,7 @@
         <div id="sideMenu">
             <div class="side-menu-group">
                 <p>Account</p>
-                <a class="side-menu-item <%= page === 'info' ? 'active' : '' %>" href="/account/">
+                <a class="side-menu-item <%= (page.startsWith('info')) ? 'active' : '' %>" href="/account/">
                     <span>
                         <div class="icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -85,7 +92,7 @@
             </div>
             <div class="side-menu-group">
                 <p>Services</p>
-                <a class="side-menu-item" href="/account/downloads">
+                <a class="side-menu-item <%= page === 'downloads' ? 'active' : '' %>"href="/account/downloads">
                     <span>
                         <div class="icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -98,11 +105,34 @@
         <div id="mainWrapper">
             <% if(page === 'info'){ %>
                 <%- include('account/info.ejs', { user }) %>
+            <% }else if(page === 'info/edit/name'){ %>
+                <%- include('account/edit-name.ejs', { user }) %>
+            <% }else if(page === 'info/edit/email'){ %>
+                <%- include('account/edit-email.ejs', { user }) %>
+            <% }else if(page === 'info/edit/picture'){ %>
+                <%- include('account/edit-picture.ejs', { user }) %>
             <% }else if(page === 'settings'){ %>
                 <%- include('account/settings.ejs', { user }) %>
             <% }else if(page === 'subscriptions'){ %>
                 <%- include('account/subscriptions.ejs', { user }) %>
+            <% }else if(page === 'downloads'){ %>
+                <%- include('account/downloads.ejs', { user }) %>
             <% } %>
+        </div>
+        <div id="saveChangesPopup">
+            <div class="prompt">
+                <p class="prompt-text">Save preference changes?</p>
+            </div>
+            <div class="actions">
+                <button class="cancel-button" onclick="cancelPreferencesPopup()">Cancel</button>
+                <button class="save-button" id="preferenceSaveButton" onclick="savePreferences()">
+                    <span class="text">Save Changes</span>
+                    <span class="saved-text">Saved</span>
+                    <div class="dot-typing">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><circle cx="18" cy="12" r="0" fill="currentColor"><animate attributeName="r" begin=".67" calcMode="spline" dur="1.5s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0"/></circle><circle cx="12" cy="12" r="0" fill="currentColor"><animate attributeName="r" begin=".33" calcMode="spline" dur="1.5s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0"/></circle><circle cx="6" cy="12" r="0" fill="currentColor"><animate attributeName="r" begin="0" calcMode="spline" dur="1.5s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0"/></circle></svg>
+                    </div>
+                </button>
+            </div>
         </div>
     </div>
 </body>

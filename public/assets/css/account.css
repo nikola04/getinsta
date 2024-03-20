@@ -79,7 +79,6 @@ div#sideMenu a.side-menu-item{
 div#sideMenu a.side-menu-item.active{
     background-color: var(--color-secondary);
     color: var(--color-primary);
-    pointer-events: none;
 }
 div#sideMenu a.side-menu-item:hover{
     background-color: #f5f6fb;
@@ -287,4 +286,262 @@ input:checked + label div.toggle-switch svg:first-child{
 input:checked + label div.toggle-switch svg:last-child{
     scale: .5;
     opacity: 0;
+}
+
+div#mainWrapper{
+    position: relative;
+}
+div#saveChangesPopup{
+    position: fixed;
+    bottom: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .675rem;
+    width: 100%;
+    max-width: 600px;
+    border-radius: var(--border-radius-inner);
+    background-color: #141619;
+    transition: .5s ease all;
+}
+div#saveChangesPopup.active{
+    animation: .7s ease bouncePopup;
+    animation-fill-mode: forwards;
+}
+@keyframes bounceHide {
+    0%{
+        bottom: 4rem;
+    }
+    100% {
+        bottom: -100%;
+    }
+}
+@keyframes bouncePopup {
+	0% {
+        bottom: -100%;
+    }
+	75% {
+        bottom: 4.5rem;
+    }
+    90%{
+        bottom: 3.75rem;
+    }
+    100%{
+        bottom: 4rem;
+    }
+}
+
+div#saveChangesPopup > div.prompt{
+    padding: 0 .5rem;
+}
+div#saveChangesPopup > div.prompt p{
+    color: #f9f9f9;
+    font-size: 14px;
+    font-weight: 500;
+}
+div#saveChangesPopup > div.actions{
+    display: flex;
+    margin-left: 1rem;
+    transition: .14s ease all;
+}
+div#saveChangesPopup > div.actions button.cancel-button{
+    padding: 0 .25rem;
+    margin: 0 .5rem;
+    border: none;
+    background: none;
+    color: #f9f9f9;
+    cursor: pointer;
+    transition: .14s ease all;
+}
+div#saveChangesPopup > div.actions button.cancel-button:hover{
+    text-decoration: underline;
+}
+div#saveChangesPopup > div.actions button.save-button{
+    padding: .5rem .675rem;
+    /* margin: 0 .5rem; */
+    border: none;
+    border-radius: 6px;
+    background-color: var(--color-primary-active);
+    color: #fff;
+    cursor: pointer;
+    transition: .14s ease all;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: .14s ease all;
+    width: 120px;
+}
+div#saveChangesPopup > div.actions button.save-button.saved{
+    width: 65px;
+}
+div#saveChangesPopup > div.actions button.save-button > span.saved-text{
+    display: none;
+}
+div#saveChangesPopup > div.actions button.save-button.loading > span{
+    opacity: 0;
+}
+div#saveChangesPopup > div.actions button.save-button.saved > span.text{
+    opacity: 0;
+    display: none;
+}
+div#saveChangesPopup > div.actions button.save-button.saved > span.saved-text{
+    display: block;
+}
+button.save-button > div.dot-typing{
+    display: none;
+    position: absolute;
+    width: 80px;
+    height: 38px;
+}
+button.save-button.loading > div.dot-typing{
+    display: block;
+}
+button.save-button > div.dot-typing svg{
+    width: 100%;
+    height: 100%;
+}
+div#saveChangesPopup > div.actions button.save-button:active{
+    background-color: var(--color-primary);
+}
+
+div#editWrapper{
+    padding: 0 .5rem;
+}
+div#editNavigation{
+    display: flex;
+    flex-direction: column;
+    padding: .5rem 0 1.5rem;
+}
+div#editNavigation div.navigation{
+    display: flex;
+    align-items: center;
+}
+div#editNavigation div.navigation a.navigation-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    padding: .5rem;
+    text-decoration: none;
+    border-radius: 50%;
+    transition: .14s ease all;
+}
+div#editNavigation div.navigation a.navigation-button:hover{
+    background-color: #ddd;
+}
+div#editNavigation div.navigation a.navigation-button svg{
+    width: 100%;
+    height: 100%;
+    color: var(--color-gray-primary);
+}
+div#editNavigation div.navigation p{
+    margin-left: .5rem;
+    font-size: 20px;
+    color: var(--color-gray-primary);
+}
+div#editNavigation > p.page-description{
+    font-size: 14px;
+    padding: .25rem .5rem;
+    color: var(--color-gray-primary);
+}
+
+div#editContainer > form{
+    width: 100%;
+    max-width: 420px;
+}
+div#editContainer > form > div.form-data{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+div.form-data div.email-verification-status{
+    display: flex;
+    padding: .25rem 0;
+}
+div.form-data div.email-verification-status.unverified > div.unverified{
+    display: flex;
+    color: #df6363;
+}
+div.form-data div.email-verification-status.verified > div.verified{
+    display: flex;
+    color: var(--color-primary);
+}
+div.form-data div.email-verification-status > div.verification-status{
+    display: none;
+    align-items: center;
+}
+div.email-verification-status > div.verification-status svg{
+    width: 19px;
+    height: 19px;
+    margin-left: .5rem;
+}
+div.email-verification-status > div.verification-status p{
+    font-size: 14px;
+    margin-left: .375rem;
+}
+
+div.form-data > div.input-group{
+    display: flex;
+    flex-direction: column;
+    padding: .5rem;
+    width: 100%;
+}
+div.form-data > div.input-group label{
+    font-size: 14px;
+    padding: .25rem 0;
+}
+div.form-data > div.input-group input{
+    width: 100%;
+    font-size: 15px;
+    margin: .25rem 0;
+    padding: .75rem 1rem;
+    border: 1px solid var(--color-secondary-active);
+    background-color: #f5f6fb;
+    outline: 0;
+    border-radius: var(--border-radius-inner);
+}
+div#editContainer > form > div.form-buttons{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: .5rem 0;
+}
+div.form-buttons > a.cancel-button{
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--color-gray-primary);
+    padding: .75rem 1rem;
+    border-radius: var(--border-radius-inner);
+    transition: .14s ease all;
+    margin: .5rem;
+}
+div.form-buttons > a.cancel-button:hover{
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
+}
+div.form-buttons > button[type="submit"]{
+    font-size: 14px;
+    background-color: var(--color-primary-active);
+    border: none;
+    outline: 0;
+    border-radius: var(--border-radius-inner);
+    cursor: pointer;
+    color: #fff;
+    padding: .75rem 1rem;
+    margin: 0 .5rem;
+    transition: .14s ease all;
+}
+div.form-buttons > button[type="submit"].disabled{
+    background-color: #424959;
+    pointer-events: none;
+}
+div.form-buttons > button[type="submit"]:hover{
+    background-color: var(--color-primary);
 }
