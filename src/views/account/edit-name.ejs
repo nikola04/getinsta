@@ -1,0 +1,29 @@
+<div id="editWrapper">
+    <div id="editNavigation">
+        <div class="navigation">
+            <a href="/account/" class="navigation-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </a>
+            <p>Name</p>
+        </div>
+        <p class="page-description">Change your account name.</p>
+    </div>
+    <div id="editContainer">
+        <form action="/api/account/name" id="updateNameData">
+            <div class="form-data">
+                <div class="input-group">
+                    <label for="firstNameInput">First Name</label>
+                    <input id="firstNameInput" type="text" placeholder="Your first name" name="first-name" value="<%= user.name.first_name %>">
+                </div>
+                <div class="input-group">
+                    <label for="lastNameInput">Last Name</label>
+                    <input id="lastNameInput" type="text" placeholder="Your last name" name="last-name" value="<%= user.name.last_name %>">
+                </div>
+            </div>
+            <div class="form-buttons">
+                <a class="cancel-button navigation-button" href="/account/">Discard</a>
+                <button type="submit" id="nameChangesSubmit">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>

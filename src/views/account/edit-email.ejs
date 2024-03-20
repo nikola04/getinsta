@@ -1,0 +1,35 @@
+<div id="editContainer">
+    <div id="editNavigation">
+        <div class="navigation">
+            <a href="/account/" class="navigation-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </a>
+            <p>Email</p>
+        </div>
+        <p class="page-description">Change your account email address.</p>
+    </div>
+    <div id="editContainer">
+        <form action="/api/account/email" id="updateEmailData">
+            <div class="form-data">
+                <div class="input-group">
+                    <label for="emailInput">Email</label>
+                    <input id="emailInput" type="text" placeholder="New email" name="email" value="<%= user.email %>">
+                </div>
+                <div class="email-verification-status <%= user.verified_email ? 'verified' : 'unverified' %>">
+                    <div class="unverified verification-status">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-circle"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                        <p>Not verified</p>
+                    </div>
+                    <div class="verified verification-status">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"/></svg>
+                        <p>Verified</p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-buttons">
+                <a class="cancel-button navigation-button" href="/account/">Discard</a>
+                <button type="submit" id="emailChangesSubmit">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
