@@ -6,6 +6,7 @@ export interface ValidateTokenData{
     ip?: string
 }
 export interface RecaptchaResponse{
+    score?: number;
     success: boolean,
     challenge_ts: Date,
     hostname: string,
