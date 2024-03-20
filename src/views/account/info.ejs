@@ -1,5 +1,5 @@
 <div id="accountContainer">
-    <a href="picture" class="account-button" id="accountPhotoButton">
+    <a href="/account/edit/picture" class="account-button navigation-button" id="accountPhotoButton">
         <span>
             <div class="container-group">
                 <div class="group-details">
@@ -23,13 +23,17 @@
             </div>
         </span>
     </a>
-    <a href="name" class="account-button" id="accountNameButton">
+    <a href="/account/edit/name" class="account-button navigation-button" id="accountNameButton">
         <span>
             <div class="container-group">
                 <div class="group-details">
                     <p class="heading-text">Full Name</p>
                     <div class="group-value">
-                        <p class="value"><%= user.name %></p>
+                        <% if(user.name.first_name || user.name.last_name){ %>
+                            <p class="value"><%= user.name.first_name + ' ' + user.name.last_name %></p>
+                        <% }else{ %>
+                            <p>Not set</p>
+                        <% } %>
                     </div>
                 </div>
                 <div class="group-data">
@@ -38,7 +42,7 @@
             </div>
         </span>
     </a>
-    <a href="email" class="account-button" id="accountEmailButton">
+    <a href="/account/edit/email" class="account-button navigation-button" id="accountEmailButton">
         <span>
             <div class="container-group">
                 <div class="group-details">
