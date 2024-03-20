@@ -1,5 +1,13 @@
-<% default_picture = "/assets/images/default-user.svg"; %>
-<% platforms = [{
+<% const default_picture = "/assets/images/default-user.svg"; %>
+<%
+    const getUserName = () => {
+        if(!user) return null
+        if(user.name.first_name) return user.name.first_name
+        if(user.name.last_name) return user.name.last_name
+    }
+    const user_name = getUserName()
+%>
+<% const platforms = [{
     name: 'YouTube',
     desc: 'Download YouTube videos and more.',
     logo: '/assets/images/youtube-logo.png',
@@ -197,7 +205,7 @@
                                     <img src="<%- user.picture.url ?? default_picture %>" alt="Profile Picture">
                                 </div>
                                 <div class="user-profile-name">
-                                    <p>Hi, <%= user.name ?? 'User' %></p>
+                                    <p>Hi, <%= user_name ?? 'User' %></p>
                                 </div>
                                 <a href="/account" class="user-profile-button">
                                     <span>Manage my Account</span>
@@ -224,10 +232,10 @@
                                 </div>
                                 <div class="user-menu-group">
                                     <div class="user-menu-item">
-                                        <form action="/auth/logout" method="post" style="width: 100%;">
+                                        <form id="logoutForm" action="/auth/logout" method="post" style="width: 100%;">
                                             <button type="submit">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-                                                <p onclick="logout()">Logout</p>
+                                                <p>Logout</p>
                                             </button>
                                         </form>
                                     </div>
