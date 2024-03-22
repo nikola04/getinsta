@@ -3,7 +3,7 @@ import cookieParser from 'cookie-parser'
 import env from 'dotenv'
 import { OAuth2Client, TokenPayload } from 'google-auth-library';
 import jwt from 'jsonwebtoken'
-import { readFileSync, createWriteStream } from 'fs'
+import { readFileSync } from 'fs'
 import User, { PictureSource, UserData } from '../../../schemas/user'
 import { rateLimit } from '../../middlewares/ratelimit';
 
@@ -64,10 +64,6 @@ async function findOrCreateGoogleUser(googleUser: TokenPayload): Promise<UserDat
 router.post('/login', rateLimit({
     endpoint: '/login',
     rateLimits: {
-        loggedIn: {
-            time: 0,
-            limit: 0
-        },
         anonymous: {
             time: 1000,
             limit: 10
@@ -95,7 +91,7 @@ router.post('/login', rateLimit({
 router.post('/logout', (req, res) => {
     res.cookie('access_token', '', { httpOnly: true, secure: true, maxAge: -1, sameSite: 'strict', domain: '.getinsta.xyz' })
     // res.cookie('logged_out', '1', { maxAge: 30 * 1000 })
-    res.redirect(303, '/')
+    res.redirect('/')
 })
 
 export = router
