@@ -163,7 +163,7 @@ function createHTMLYoutubeVideo(video: VideoData, formats: GroupedFormats): HTML
     const duration = convertTime(Number(video.duration_seconds))
     const channel = video.channel.name
     const channel_url = video.channel.url
-    const best_available_format = formats.video[0]
+    const best_available_format = formats.video.length > 0 ? formats.video[0] : (formats.videoOnly.length > 0 ? formats.videoOnly[0] : formats.audioOnly[0])
     //
     const video_elem = document.createElement('div')
     video_elem.classList.add('youtube-video')
@@ -335,9 +335,9 @@ function createHTMLYoutubeVideo(video: VideoData, formats: GroupedFormats): HTML
         if(name.includes('p60')){ fps = 60; name = name.split('p60')[0] + 'p' }
         video_qualities.appendChild(createQualityElement(name, format, fps, tags))
     });
-    // qualities.appendChild(video_qualities)
-    qualities.appendChild(av_qualities)
-    qualities.appendChild(audio_qualities)
+    if(formats.videoOnly.length > 0) qualities.appendChild(video_qualities)
+    if(formats.video.length > 0) qualities.appendChild(av_qualities)
+    if(formats.audioOnly.length > 0) qualities.appendChild(audio_qualities)
     slctd_quality.addEventListener('click', e => {
         e.stopPropagation()
         closeAllQuantities()
@@ -446,4 +446,24 @@ yt_url?.addEventListener('keydown', (e) => {
 yt_url?.addEventListener('keypress', (e) => {
     if(e.key !== 'Enter' || yt_url.value.length == 0) return
     trySearchUrl() // On Enter press
+})
+
+addEventListener('load', e => {
+    const formats = document.querySelector('div.formats-tabs')
+    const underline = document.querySelector('div#tabUnderline') as HTMLDivElement
+    const setUnderlineByParent = (parent: Element) => {
+        parent.classList.add('active')
+        const formats_left = formats.getBoundingClientRect().left
+        const rect = parent.getBoundingClientRect()
+        const left = rect.left - formats_left
+        const width = rect.width
+        underline.style.left = `${left}px`
+        underline.style.width = `${width}px`
+    }
+    setUnderlineByParent(formats.querySelector('div.formats-tab'))
+    const format_tabs = document.querySelectorAll('div.formats-tab')
+    format_tabs.forEach(format => format.addEventListener('click', e => {
+        format_tabs.forEach(tab => tab.classList.remove('active'))
+        setUnderlineByParent(format)
+    }))
 })

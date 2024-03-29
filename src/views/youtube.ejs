@@ -62,12 +62,28 @@
     <%- include('nav.ejs', { googleId, signedIn, user }) %>
     <div id="formatsPopupWrapper">
         <div id="formatsPopup">
+            <div class="formats-header">
+                <div class="formats-tabs">
+                    <div class="formats-tab video-tab"><span>Video</span></div>
+                    <div class="formats-tab audio-tab"><span>Audio</span></div>
+                    <div class="formats-tab videoonly-tab"><span>VideoOnly</span></div>
+                    <div id="tabUnderline"></div>
+                </div>
+            </div>
+            <div class="formats-container">
+                <div class="videos">
+                </div>
+                <div class="audio">
+                </div>
+                <div class="videoOnly">
+                </div>
+            </div>
         </div>
     </div>
     <div id="main">
         <div class="section-header">
             <h1 class="header-title">Youtube Downloader</h1>
-            <p class="header-desc">Download YouTube videos and shorts in original resolution</p>
+            <p class="header-desc">Download YouTube videos and shorts in best resolutions</p>
         </div>
         <div id="pasteYoutubeUrl">
             <div class="yt-input-wrapper">

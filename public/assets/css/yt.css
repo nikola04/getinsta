@@ -364,7 +364,7 @@ div#formatsPopupWrapper{
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, .25);
+    background-color: rgba(42, 43, 44, 0.25);
     z-index: 19;
     transition: .14s ease background-color;
 }
@@ -375,6 +375,58 @@ div#formatsPopup{
     padding: 1rem;
     background-color: #fff;
     border-radius: 12px;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 .75rem;
+}
+div#formatsPopup > div.formats-header{
+    display: flex;
+    align-items: center;
+    padding: .5rem;
+}
+div.formats-header > div.formats-tabs{
+    position: relative;
+    width: 100%;
+    display: flex;
+    padding-bottom: 3px;
+}
+div.formats-header > div.formats-tabs::after{
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 1px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #eee;
+}
+div.formats-tabs > div.formats-tab{
+    padding: .5rem .75rem;
+    cursor: pointer;
+    transition: .14s ease all;
+}
+div.formats-tabs > div.formats-tab:active{
+    background-color: #f3f3f3;
+}
+div.formats-tabs > div.formats-tab span{
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--color-gray-primary);
+    transition: .14s ease all;
+}
+div.formats-tabs > div.formats-tab.active span{
+    color: var(--color-primary);
+}
+
+div.formats-tabs > div#tabUnderline{
+    position: absolute;
+    background-color: var(--color-primary);
+    height: 3px;
+    left: 0;
+    bottom: 0;
+    transition: .14s ease all;
+    z-index: 1;
+    border-radius: 2px;
 }
 
 div.section-wrapper{
